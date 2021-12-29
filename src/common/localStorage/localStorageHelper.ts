@@ -1,7 +1,7 @@
 const LocalStorageSet=(name :string,value:string)=>{
     localStorage.setItem(name,value);
 };
-const LocalStorageGet=(name:string)=>{
+const LocalStorageGet=(name:string):string|null=>{
     return  localStorage.getItem(name);
 };
 const LocalStorageClear=(name:string)=>{

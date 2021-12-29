@@ -16,14 +16,14 @@ import {BaseResponse} from "../base/baseResponse";
 
 export interface UserResponse  {
     SsoAccountId: number;
-    UaeIdNumber: string;
+    UaeIdNumber?: string;
     UserName: string;
     Email: string;
     Mobile: string;
     ParticipantNameAr: string;
     ParticipantNameEn: string;
     RoleId: number;
-    CardNumber: string;
+    CardNumber?: string;
     IsUserVerified: boolean;
     RealEstateNumber?: string;
     AuthorityId?: number;

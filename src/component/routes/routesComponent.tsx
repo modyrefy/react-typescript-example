@@ -2,6 +2,7 @@ import React, {  FC } from "react";
 import {Link, Route, Routes} from "react-router-dom";
 import SignUp from "../authentication/signup.component";
 import {LoginForm} from "../authentication/loginForm";
+import ProductList from "../product/productList.component";
 export const RoutesComponent:FC<{}>=()=>{
     return  (
 
@@ -28,8 +29,14 @@ export const RoutesComponent:FC<{}>=()=>{
                         <Route path='/login' element={<LoginForm/>}/>
                         <Route path="/sign-in" element={<LoginForm/>}/>
                         <Route path="/sign-up" element={<SignUp/>}/>
+                        <Route path="/" element={<ProductList/>}/>
                     </Routes>
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </React.Fragment>
     )};

@@ -7,15 +7,17 @@ import {authincateUser} from "../../slice/userAuthincateSlice";
 import {LoadingBox} from "../box/loadingBox";
 import {MessageBox} from "../box/messageBox";
 import {AuthenticateUserRequest} from "../../models/interfaces/user/authenticateUserRequest";
-import {IuserState} from "../../models/interfaces/user/userState";;
+import {IuserState} from "../../models/interfaces/user/userState";
+import {RootState} from "@reduxjs/toolkit/dist/query/core/apiState";
+import {CombinedState} from "@reduxjs/toolkit";
 
-interface IRootState {
-    isOn: boolean
-}
+;
+
+
 export function LoginForm(props:any) {
     const initialValues = {
-        userName: "",
-        password: "",
+        userName: "modyabc",
+        password: "12345",
         remember: true,
     };
     const paperStyle = {
@@ -45,17 +47,20 @@ export function LoginForm(props:any) {
     }));
 
     const dispatch = useDispatch();
-    const User=useSelector((state:IuserState)=>state);
+    // @ts-ignore
+    const User=useSelector((state:IuserState)=>({...state.User}));
     //const {User}= useSelector<RootState<any, any, any>, UserState>((state) => state);
    // const user = useSelector<TState, User>(selectUser)
     useEffect(() => {
-        if(User && User.errors !== null && User.errors !==undefined && User.errors.length !== 0  )
-        {
+       // alert(JSON.stringify(User));
+        //console.log('USER1 ' +JSON.stringify(User1));
+        // console.log('USER ' +JSON.stringify(User));
+        // console.log('vv ' +JSON.stringify(User.vv));
+        if (User && User.errors !== null && User.errors !== undefined && User.errors.length !== 0) {
             window.scrollTo(0, 0)
         }
-        if(User.isAuthenticated)
-        {
-            props.history.push("/device");
+        if (User.isAuthenticated) {
+            props.history.push("/");
         }
     }, [User.isAuthenticated, User.errors]);
     const submitHandler = async (data:AuthenticateUserRequest) => {
@@ -69,7 +74,8 @@ export function LoginForm(props:any) {
             return false;
         }
         catch (err) {
-            console.log(err);
+            alert(err);
+            console.log('err '+err);
         }
     };
 
@@ -77,60 +83,64 @@ export function LoginForm(props:any) {
 
     return (
         <React.Fragment>
-            {/*{User.isLoading && <LoadingBox />}*/}
-            {/*{User !=null && User.Errors !== null &&  User.Errors!==undefined && User.Errors.length !== 0 && <MessageBox errors={User.Errors} severity="error"/>}*/}
-            {/*<Grid>*/}
-            {/*    <Paper elevation={10} style={paperStyle}>*/}
-            {/*        <Grid>*/}
-            {/*            <Avatar style={avatarStyle}/>*/}
-            {/*            <h2>Sign In</h2>*/}
-            {/*            <Formik*/}
-            {/*                initialValues={initialValues}*/}
-            {/*                validationSchema={validationSchema}*/}
-            {/*                onSubmit={submitHandler}*/}
-            {/*            >*/}
-            {/*                {({touched, errors, isSubmitting, handleChange}) => (*/}
-            {/*                    <Form>*/}
-            {/*                        <Field*/}
-            {/*                            as={TextField}*/}
-            {/*                            label="User name"*/}
-            {/*                            id="userName"*/}
-            {/*                            name="userName"*/}
-            {/*                            placeholder="Enter username"*/}
-            {/*                            onChange={handleChange}*/}
-            {/*                            //required*/}
-            {/*                            fullWidth*/}
-            {/*                            error={touched.userName && Boolean(errors.userName)}*/}
-            {/*                            helperText={touched.userName && errors.userName}*/}
-            {/*                        />*/}
-            {/*                        <Field*/}
-            {/*                            as={TextField}*/}
-            {/*                            label="Password"*/}
-            {/*                            id="password"*/}
-            {/*                            name="password"*/}
-            {/*                            placeholder="Enter password"*/}
-            {/*                            onChange={handleChange}*/}
-            {/*                            type="password"*/}
-            {/*                            //required*/}
-            {/*                            fullWidth*/}
-            {/*                            error={touched.password && Boolean(errors.password)}*/}
-            {/*                            helperText={touched.password && errors.password}*/}
-            {/*                        />*/}
-            {/*                        <Button*/}
-            {/*                            type="submit"*/}
-            {/*                            color="primary"*/}
-            {/*                            variant="contained"*/}
-            {/*                            style={btnStyle}*/}
-            {/*                            fullWidth*/}
-            {/*                        >*/}
-            {/*                            Sign in*/}
-            {/*                        </Button>*/}
-            {/*                    </Form>*/}
-            {/*                )}*/}
-            {/*            </Formik>*/}
-            {/*        </Grid>*/}
-            {/*    </Paper>*/}
-            {/*</Grid>*/}
+            {User==null ||User==undefined    && <p>null</p>}
+            {User!=null ||User!=undefined    && <p>not-null</p>}
+            {User.isLoading==true && <p>trueeeeeeeeeeeeeeeeee</p>}
+            {User.isLoading==false && <p>falsesssssssssssssssss</p>}
+            {User.isLoading && <LoadingBox />}
+            {User !=null && User.errors !== null &&  User.errors!==undefined && User.errors.length !== 0 && <MessageBox errors={User.errors} severity="error"/>}
+            <Grid>
+                <Paper elevation={10} style={paperStyle}>
+                    <Grid>
+                        <Avatar style={avatarStyle}/>
+                        <h2>Sign In</h2>
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={submitHandler}
+                        >
+                            {({touched, errors, isSubmitting, handleChange}) => (
+                                <Form>
+                                    <Field
+                                        as={TextField}
+                                        label="User name"
+                                        id="userName"
+                                        name="userName"
+                                        placeholder="Enter username"
+                                        onChange={handleChange}
+                                        //required
+                                        fullWidth
+                                        error={touched.userName && Boolean(errors.userName)}
+                                        helperText={touched.userName && errors.userName}
+                                    />
+                                    <Field
+                                        as={TextField}
+                                        label="Password"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Enter password"
+                                        onChange={handleChange}
+                                        type="password"
+                                        //required
+                                        fullWidth
+                                        error={touched.password && Boolean(errors.password)}
+                                        helperText={touched.password && errors.password}
+                                    />
+                                    <Button
+                                        type="submit"
+                                        color="primary"
+                                        variant="contained"
+                                        style={btnStyle}
+                                        fullWidth
+                                    >
+                                        Sign in
+                                    </Button>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Grid>
+                </Paper>
+            </Grid>
         </React.Fragment>
     );
 }
