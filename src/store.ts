@@ -10,8 +10,8 @@ const reducer = {
     User: UserAuthenticate
 }
 const USER_INFO_LOCAL_STORAGE_KEY :string=AppConfiguration.Setting().authenticationTokenStorageKey;
-const ss:string|null= JSON.parse(<string>(USER_INFO_LOCAL_STORAGE_KEY));
-alert('sssssss'+ ss)
+const ss:string|null= JSON.parse(<string>LocalStorageGet(USER_INFO_LOCAL_STORAGE_KEY));
+//alert('sssssss'+ ss)
 const preloadedState = {
     User: {
         userAccount: localStorage.getItem(USER_INFO_LOCAL_STORAGE_KEY)? JSON.parse(<string>LocalStorageGet(USER_INFO_LOCAL_STORAGE_KEY)): null,

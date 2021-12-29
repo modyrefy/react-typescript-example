@@ -8,6 +8,7 @@ import {AppConfiguration} from "read-appsettings-json";
 
 const initialState: IuserState = {
     userAccount: null,
+    userToken:null,
     isLoading: false,
     isAuthenticated: false,
     errors: []
@@ -18,7 +19,7 @@ const slice = createSlice({
     initialState : initialState,
     reducers: {
         setLoading: (state, action) => {
-            alert('state ' +JSON.stringify(state));
+           // alert('state ' +JSON.stringify(state));
             return {
                 ...state,
                 isLoading: action.payload,
@@ -27,11 +28,12 @@ const slice = createSlice({
         setAuthenticateSuccess: (state, action) => {
             const {response, token, remember} = action.payload;
             if (remember === true) {
-                LocalStorageSet(AppConfiguration.Setting().authenticationTokenStorageKey, token);
+                LocalStorageSet(AppConfiguration.Setting().authenticationTokenStorageKey,JSON.stringify( token));
             }
             return {
                 ...state,
                 userAccount: response,//action.payload,
+                userToken: token,
                 isLoading: false,
                 isAuthenticated: true,
                 errors: [],
@@ -66,6 +68,7 @@ export const authincateUser = (obj: AuthenticateUserRequest) => {
             dispatch(setLoading(true));
             await sleep(2000);
             const params = {...obj};
+           // alert('alert ' + JSON.stringify(params))
             let apiRespopnse: AuthenticateUserResponse;
             if (!AppConfiguration.Setting().isAuthenticationMockEnabled) {
                 apiRespopnse = await defaultAxiosApiInstance.post("user/authenticate", params);
@@ -95,6 +98,7 @@ export const authincateUser = (obj: AuthenticateUserRequest) => {
             }
             console.log('authincate ' + JSON.stringify(apiRespopnse));
             if (apiRespopnse != null && apiRespopnse.response != null && apiRespopnse.response != undefined) {
+                //alert("apiRespopnse" + JSON.stringify(apiRespopnse));
                 dispatch(setAuthenticateSuccess(
                     {
                         response: apiRespopnse.response,
