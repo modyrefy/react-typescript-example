@@ -3,6 +3,8 @@ import {Link, Route, Routes} from "react-router-dom";
 import SignUp from "../authentication/signup.component";
 import {LoginForm} from "../authentication/loginForm";
 import ProductList from "../product/productList.component";
+import {PrivateRoute} from "./authenticatedRoute";
+import {AuthenticatedComponent} from "../test/authenticatedComponent";
 export const RoutesComponent:FC<{}>=()=>{
     return  (
 
@@ -30,6 +32,11 @@ export const RoutesComponent:FC<{}>=()=>{
                         <Route path="/sign-in" element={<LoginForm/>}/>
                         <Route path="/sign-up" element={<SignUp/>}/>
                         <Route path="/" element={<ProductList/>}/>
+                        <Route path="/private" element=
+                            {<PrivateRoute>
+                                <AuthenticatedComponent/>
+                            </PrivateRoute>
+                            } />
                     </Routes>
                 </div>
             </div>

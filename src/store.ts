@@ -4,20 +4,20 @@ import {configureStore, Store} from "@reduxjs/toolkit";
 import logger from 'redux-logger';
 import { reduxBatch } from '@manaflair/redux-batch';
 import UserAuthenticate from "./slice/userAuthincateSlice";
-import { LocalStorageGet} from "./common/localStorage/localStorageHelper";
+import {LocalStorageEncryptedGet, LocalStorageGet} from "./common/localStorage/localStorageHelper";
 import {AppConfiguration} from "read-appsettings-json";
 const reducer = {
     User: UserAuthenticate
 }
-const USER_INFO_LOCAL_STORAGE_KEY :string=AppConfiguration.Setting().authenticationTokenStorageKey;
-const ss:string|null= JSON.parse(<string>LocalStorageGet(USER_INFO_LOCAL_STORAGE_KEY));
-//alert('sssssss'+ ss)
+const authenticatedTokenStorageKey :string=AppConfiguration.Setting().authenticatedTokenStorageKey;
+const authenticatedUserStorageKey :string=AppConfiguration.Setting().authenticatedUserStorageKey;
 const preloadedState = {
     User: {
-        userAccount: localStorage.getItem(USER_INFO_LOCAL_STORAGE_KEY)? JSON.parse(<string>LocalStorageGet(USER_INFO_LOCAL_STORAGE_KEY)): null,
+        userAccount: localStorage.getItem(authenticatedUserStorageKey)? JSON.parse(<string>LocalStorageEncryptedGet(authenticatedUserStorageKey)): null,
+        userToken:localStorage.getItem(authenticatedTokenStorageKey)? JSON.parse(<string>LocalStorageGet(authenticatedTokenStorageKey)): null,
         //userAccount: localStorage.getItem(USER_INFO_LOCAL_STORAGE_KEY)?LocalStorageGet(USER_INFO_LOCAL_STORAGE_KEY): null,
         isLoading: false,
-        isAuthenticated: localStorage.getItem(USER_INFO_LOCAL_STORAGE_KEY)?true:false,
+        isAuthenticated: localStorage.getItem(authenticatedTokenStorageKey)?true:false,
         vv:"xxxxxxxx",
         errors: []
     },

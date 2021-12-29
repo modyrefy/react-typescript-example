@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {LocalStorageSet} from "../common/localStorage/localStorageHelper";
+import {LocalStorageEncryptedSet, LocalStorageSet} from "../common/localStorage/localStorageHelper";
 import {AuthenticateUserRequest} from "../models/interfaces/user/authenticateUserRequest";
 import defaultAxiosApiInstance from "../axios/defaultAxiosApiInstance";
 import {AuthenticateUserResponse} from "../models/interfaces/user/AuthenticateUserResponse";
@@ -28,7 +28,8 @@ const slice = createSlice({
         setAuthenticateSuccess: (state, action) => {
             const {response, token, remember} = action.payload;
             if (remember === true) {
-                LocalStorageSet(AppConfiguration.Setting().authenticationTokenStorageKey,JSON.stringify( token));
+                LocalStorageSet(AppConfiguration.Setting().authenticatedTokenStorageKey,JSON.stringify( token));
+                LocalStorageEncryptedSet(AppConfiguration.Setting().authenticatedUserStorageKey,JSON.stringify( response));
             }
             return {
                 ...state,

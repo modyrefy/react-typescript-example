@@ -89,7 +89,7 @@ function ProductList() {
                 {loading && <LoadingBox/>}
                 {data && data.map((row: Item) =>
                     (
-                        <ProductItem item={row}/>
+                        <ProductItem key={row.id} item={row}/>
                         // <div className="card" >
                         //     <img  src={`${row.imageurl}`}  className="card-img-top" style={} alt="..."/>
                         //     <div className="card-body">

@@ -8,3 +8,4 @@ export interface IuserState {
     isAuthenticated:boolean,
     errors?:ValidationError[]
 }
+

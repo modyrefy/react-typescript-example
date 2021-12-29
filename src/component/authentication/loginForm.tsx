@@ -72,10 +72,6 @@ export function LoginForm(props: any) {
 
     return (
         <React.Fragment>
-            {User == null || User == undefined && <p>null</p>}
-            {User != null || User != undefined && <p>not-null</p>}
-            {User.isLoading == true && <p>trueeeeeeeeeeeeeeeeee</p>}
-            {User.isLoading == false && <p>falsesssssssssssssssss</p>}
             {User.isLoading && <LoadingBox/>}
             {User != null && User.errors !== null && User.errors !== undefined && User.errors.length !== 0 &&
             <MessageBox errors={User.errors} severity="error"/>}
