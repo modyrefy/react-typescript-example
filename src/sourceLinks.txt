@@ -1,0 +1,5 @@
+https://dev.to/iamandrewluca/private-route-in-react-router-v6-lg5
+https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/
+https://www.positronx.io/build-react-login-sign-up-ui-template-with-bootstrap-4/
+https://codepen.io/lynellf/pen/oNvGZYy
+https://www.bezkoder.com/react-typescript-authentication-example/
