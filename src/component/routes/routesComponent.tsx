@@ -5,6 +5,18 @@ import {LoginForm} from "../authentication/loginForm";
 import ProductList from "../product/productList.component";
 import {PrivateRoute} from "./authenticatedRoute";
 import {AuthenticatedComponent} from "../test/authenticatedComponent";
+export interface RouteObject {
+    path: string;
+    name: string;
+    description: string;
+    features: string;
+    price: string;
+    keywords: string;
+    url: string;
+    category: string;
+    subcategory: string;
+    imageurl:string|null;
+}
 export const RoutesComponent:FC<{}>=()=>{
     return  (
 
@@ -34,7 +46,7 @@ export const RoutesComponent:FC<{}>=()=>{
                         <Route path="/" element={<ProductList/>}/>
                         <Route path="/private" element=
                             {<PrivateRoute>
-                                <AuthenticatedComponent/>
+                                { <AuthenticatedComponent/>}
                             </PrivateRoute>
                             } />
                     </Routes>
