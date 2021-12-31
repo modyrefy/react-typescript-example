@@ -1,4 +1,4 @@
-{
+export const TRANSLATIONS_FR={
   "TRANSLATOR.SELECT": "choisissez votre langue",
   "MENU.NEW": "Nouveau",
   "MENU.ACTIONS": "Actes",

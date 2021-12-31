@@ -5,25 +5,14 @@ import {LoginForm} from "../authentication/loginForm";
 import ProductList from "../product/productList.component";
 import {PrivateRoute} from "./authenticatedRoute";
 import {AuthenticatedComponent} from "../test/authenticatedComponent";
-export interface RouteObject {
-    path: string;
-    name: string;
-    description: string;
-    features: string;
-    price: string;
-    keywords: string;
-    url: string;
-    category: string;
-    subcategory: string;
-    imageurl:string|null;
-}
+
 export const RoutesComponent:FC<{}>=()=>{
     return  (
 
         <React.Fragment>
             <nav className="navbar navbar-expand-lg navbar-light fixed-top">
                 <div className="container">
-                    <Link className="navbar-brand" to={"/"}>Home</Link>
+                    <Link className="navbar-brand" to={"/product"}>Products</Link>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
@@ -43,7 +32,7 @@ export const RoutesComponent:FC<{}>=()=>{
                         <Route path='/login' element={<LoginForm/>}/>
                         <Route path="/sign-in" element={<LoginForm/>}/>
                         <Route path="/sign-up" element={<SignUp/>}/>
-                        <Route path="/" element={<ProductList/>}/>
+                        <Route path="/product" element={<ProductList/>}/>
                         <Route path="/private" element=
                             {<PrivateRoute>
                                 { <AuthenticatedComponent/>}

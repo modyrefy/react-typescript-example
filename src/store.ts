@@ -4,7 +4,7 @@ import {configureStore, Store} from "@reduxjs/toolkit";
 import logger from 'redux-logger';
 import { reduxBatch } from '@manaflair/redux-batch';
 import UserAuthenticate from "./slice/userAuthincateSlice";
-import {LocalStorageEncryptedGet, LocalStorageGet} from "./common/localStorage/localStorageHelper";
+import {LocalStorageEncryptedGet, LocalStorageGet} from "./utility/localStorage/localStorageHelper";
 import {AppConfiguration} from "read-appsettings-json";
 const reducer = {
     User: UserAuthenticate

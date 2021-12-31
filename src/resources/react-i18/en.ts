@@ -1,4 +1,4 @@
-{
+export const TRANSLATIONS_EN={
   "TRANSLATOR.SELECT": "Select your language",
   "MENU.NEW": "new",
   "MENU.ACTIONS": "Actions",
@@ -16,7 +16,7 @@
   "AUTH.GENERAL.PRIVACY": "Privacy",
   "AUTH.GENERAL.LEGAL": "Legal",
   "AUTH.GENERAL.CONTACT": "Contact",
-  "AUTH.LOGIN.TITLE": "تسجيل الدخول",
+  "AUTH.LOGIN.TITLE": "Login Account",
   "AUTH.LOGIN.BUTTON": "Sign In",
   "AUTH.FORGOT.TITLE": "Forgotten Password?",
   "AUTH.FORGOT.DESC": "Enter your email to reset your password",

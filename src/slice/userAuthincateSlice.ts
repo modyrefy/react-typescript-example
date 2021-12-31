@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {LocalStorageEncryptedSet, LocalStorageSet} from "../common/localStorage/localStorageHelper";
+import {LocalStorageEncryptedSet, LocalStorageSet} from "../utility/localStorage/localStorageHelper";
 import {AuthenticateUserRequest} from "../models/interfaces/user/authenticateUserRequest";
 import defaultAxiosApiInstance from "../axios/defaultAxiosApiInstance";
 import {AuthenticateUserResponse} from "../models/interfaces/user/AuthenticateUserResponse";
