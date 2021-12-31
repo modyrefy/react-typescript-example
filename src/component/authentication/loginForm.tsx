@@ -51,7 +51,16 @@ export function LoginForm(props: any) {
         }
         if (User.isAuthenticated) {
             //props.history.push("/");
-            navigate("/");
+            navigate("/product");
+        }
+    }, []);
+    useEffect(() => {
+        if (User && User.errors !== null && User.errors !== undefined && User.errors.length !== 0) {
+            window.scrollTo(0, 0)
+        }
+        if (User.isAuthenticated) {
+            //props.history.push("/");
+            navigate("/product");
         }
     }, [User.isAuthenticated, User.errors]);
     const submitHandler = async (data: AuthenticateUserRequest) => {

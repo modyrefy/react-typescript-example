@@ -41,10 +41,5 @@ export const RoutesComponent:FC<{}>=()=>{
                     </Routes>
                 </div>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
         </React.Fragment>
     )};

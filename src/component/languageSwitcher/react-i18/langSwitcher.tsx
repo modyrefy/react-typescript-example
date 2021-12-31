@@ -5,7 +5,7 @@ import "./i18n";
 import {AppConfiguration} from "read-appsettings-json";
 import {languageListData} from "../../../resources/data/languageList";
 
-const languageLocalStorageName1 = 'react_i18_lang';
+//const languageLocalStorageName1 = 'react_i18_lang';
 const languageLocalStorageName='react_inti_lang';
 const defaultUiLanguage=AppConfiguration.Setting().defaultUiLanguage;
 
@@ -28,7 +28,7 @@ const LangSwitcherReactI18: FC<{}> = () => {
     let languageData = languageListData.filter(p => p.key === language)[0];
     languageData = languageData === null || languageData === undefined ? languageListData.filter(p => p.key === 'en-US')[0] : languageData;
     return (
-        <div className="select">
+        <>
             <table>
                 <tbody>
                 <tr>
@@ -52,8 +52,7 @@ const LangSwitcherReactI18: FC<{}> = () => {
                 </tr>
                 </tbody>
             </table>
-
-        </div>
+        </>
     );
 }
 
