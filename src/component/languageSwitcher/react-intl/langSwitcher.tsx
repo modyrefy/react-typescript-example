@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import deMessages from '../../../resources/react-intl/de.json';
 import enMessages from '../../../resources/react-intl/en.json';
 import esMessages from '../../../resources/react-intl/es.json';
@@ -9,6 +9,7 @@ import arMessages from '../../../resources/react-intl/ar.json';
 import {LocalStorageGet, LocalStorageSet} from "../../../utility/localStorage/localStorageHelper";
 import { createIntl, createIntlCache } from "react-intl";
 import {AppConfiguration} from "read-appsettings-json";
+import {languageListData} from "../../../resources/data/languageList";
 //#region variable
 const   AllLocalizationResourcesReactInt:any = {
     "de-DE": deMessages,
@@ -20,7 +21,7 @@ const   AllLocalizationResourcesReactInt:any = {
     "ar-AE": arMessages
 };
 const languageLocalStorageName='react_inti_lang';
- const defaultUiLanguage=AppConfiguration.Setting().defaultUiLanguage;
+const defaultUiLanguage=AppConfiguration.Setting().defaultUiLanguage;
 // const [language, setLanguage] = useState(defaultUiLanguage);
 //#endregion
 
@@ -44,6 +45,7 @@ const translate = (id: string, values?: {}) => {
     return int.formatMessage({ id }, values);
 };
 
+
 const LangSwitcherReactInt: FC<{language:string,setLanguage:any }> = ({language=defaultUiLanguage,setLanguage}) => {
     const handleLanguageSelect = (e: any) => {
         //console.log("GetLanguagesTitle" +JSON.stringify( GetLanguagesTitle("en-US")));
@@ -62,28 +64,28 @@ const LangSwitcherReactInt: FC<{language:string,setLanguage:any }> = ({language=
     };
 
 
-
-
+    let languageData = languageListData.filter(p => p.key === language)[0];
+    languageData = languageData === null || languageData === undefined ? languageListData.filter(p => p.key === 'en-US')[0] : languageData;
     return (<>
-       <table>
-           <tbody>
-           <tr>
-               <td>React-Intl</td>
-           </tr>
-           <tr>
-               <td>
-                   <select onChange={handleLanguageSelect} defaultValue={language}>
-                       <option value='en-US'>English</option>
-                       <option value='es-ES'>Spanish</option>
-                       <option value='fr-FR'>French</option>
-                       <option value= 'de-DE'>German</option>
-                       <option value='ja-JB'>Japanese</option>
-                       <option value='ar-AE'>العربية</option>
-                   </select>
-               </td>
-           </tr>
-           </tbody>
-       </table>
+        <table>
+            <tbody>
+            <tr>
+                <td>React-Intl</td>
+            </tr>
+            <tr>
+                <td>
+                    <select onChange={handleLanguageSelect} defaultValue={language}>
+                        <option value='en-US'>{languageData.englishLanguage}</option>
+                        <option value='es-ES'>{languageData.spanishLanguage}</option>
+                        <option value='fr-FR'>{languageData.frenchLanguage}</option>
+                        <option value='de-DE'>{languageData.germanLanguage}</option>
+                        <option value='ja-JB'>{languageData.japaneseLanguage}</option>
+                        <option value='ar-AE'>{languageData.arabicLanguage}</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
     </>)
 

@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {LocalStorageGet, LocalStorageSet} from "../../../utility/localStorage/localStorageHelper";
 import "./i18n";
 import {AppConfiguration} from "read-appsettings-json";
+import {languageListData} from "../../../resources/data/languageList";
 
 const languageLocalStorageName1 = 'react_i18_lang';
 const languageLocalStorageName='react_inti_lang';
@@ -24,6 +25,8 @@ const LangSwitcherReactI18: FC<{}> = () => {
         setLanguage(e.target.value);
         LocalStorageSet(languageLocalStorageName, e.target.value);
     };
+    let languageData = languageListData.filter(p => p.key === language)[0];
+    languageData = languageData === null || languageData === undefined ? languageListData.filter(p => p.key === 'en-US')[0] : languageData;
     return (
         <div className="select">
             <table>
@@ -38,12 +41,12 @@ const LangSwitcherReactI18: FC<{}> = () => {
                             onChange={handleLanguageSelect}
                             defaultValue={language}
                         >
-                            <option value='en-US'>English</option>
-                            <option value='es-ES'>Spanish</option>
-                            <option value='fr-FR'>French</option>
-                            <option value='de-DE'>German</option>
-                            <option value='ja-JB'>Japanese</option>
-                            <option value='ar-AE'>العربية</option>
+                            <option value='en-US'>{languageData.englishLanguage}</option>
+                            <option value='es-ES'>{languageData.spanishLanguage}</option>
+                            <option value='fr-FR'>{languageData.frenchLanguage}</option>
+                            <option value='de-DE'>{languageData.germanLanguage}</option>
+                            <option value='ja-JB'>{languageData.japaneseLanguage}</option>
+                            <option value='ar-AE'>{languageData.arabicLanguage}</option>
                         </select>
                     </td>
                 </tr>
