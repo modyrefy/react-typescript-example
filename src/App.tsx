@@ -30,16 +30,17 @@ function App() {
 
     return (
         <div dir={languageDirection}>
-            <ThemeProvider theme={defaultThemeObject}>
-                <CssBaseline/>
+            {/*<ThemeProvider theme={defaultThemeObject}>*/}
+                {/*<CssBaseline/>*/}
+                {/*<LangSwitcherReactI18/>*/}
+                {/*<LangSwitcherReactInt language={language} setLanguage={setLanguage}/>*/}
+                {/*<IntlProvider locale={language} messages={AllLocalizationResourcesReactInt[language]}>*/}
+                {/*</IntlProvider>*/}
                 <BrowserRouter>
                     <RoutesComponent/>
-                    <LangSwitcherReactI18/>
-                    <LangSwitcherReactInt language={language} setLanguage={setLanguage}/>
-                    <IntlProvider locale={language} messages={AllLocalizationResourcesReactInt[language]}>
-                    </IntlProvider>
                 </BrowserRouter>
-            </ThemeProvider>
+
+            {/*</ThemeProvider>*/}
         </div>
     );
 }

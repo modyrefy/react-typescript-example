@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import deMessages from '../../../resources/react-intl/de.json';
 import enMessages from '../../../resources/react-intl/en.json';
 import esMessages from '../../../resources/react-intl/es.json';
@@ -45,8 +45,7 @@ const translate = (id: string, values?: {}) => {
     return int.formatMessage({ id }, values);
 };
 
-
-const LangSwitcherReactInt: FC<{language:string,setLanguage:any }> = ({language=defaultUiLanguage,setLanguage}) => {
+const LangSwitcherReactInt: FC<{language:string,setLanguage:any }> = ({language=defaultUiLanguage,setLanguage})=>{
     const handleLanguageSelect = (e: any) => {
         //console.log("GetLanguagesTitle" +JSON.stringify( GetLanguagesTitle("en-US")));
         //alert(e.target.value)

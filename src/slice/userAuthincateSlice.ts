@@ -1,10 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {LocalStorageEncryptedSet, LocalStorageSet} from "../utility/localStorage/localStorageHelper";
+import {
+    LocalStorageEncryptedSet,
+    LocalStorageEncryptedWithReturnValueSet,
+    LocalStorageSet
+} from "../utility/localStorage/localStorageHelper";
 import {AuthenticateUserRequest} from "../models/interfaces/user/authenticateUserRequest";
 import defaultAxiosApiInstance from "../axios/defaultAxiosApiInstance";
-import {AuthenticateUserResponse} from "../models/interfaces/user/AuthenticateUserResponse";
+import {AuthenticateUserResponse, UserResponse} from "../models/interfaces/user/AuthenticateUserResponse";
 import {IuserState} from "../models/interfaces/user/userState";
 import {AppConfiguration} from "read-appsettings-json";
+import {number} from "yup";
+import {LayoutEnum, UserRoleEnum} from "../models/enums/enum";
 
 const initialState: IuserState = {
     userAccount: null,
@@ -27,6 +33,9 @@ const slice = createSlice({
         },
         setAuthenticateSuccess: (state, action) => {
             const {response, token, remember} = action.payload;
+            generateUserDefaultLayoutStorage(response).then((r)=>{
+                console.log(r);
+            });
             if (remember === true) {
                 LocalStorageSet(AppConfiguration.Setting().authenticatedTokenStorageKey,JSON.stringify( token));
                 LocalStorageEncryptedSet(AppConfiguration.Setting().authenticatedUserStorageKey,JSON.stringify( response));
@@ -63,6 +72,31 @@ const slice = createSlice({
 export default slice.reducer;
 const {setLoading, setAuthenticateSuccess, setAuthenticateFailed, setAuthenticationReset} = slice.actions;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const  generateUserDefaultLayoutStorage =async(user:UserResponse):Promise<string|undefined> =>{
+   let defaultLayout:number=LayoutEnum.PublicLayout;
+    if(user!==null && user!=undefined) {
+        switch (user.RoleId) {
+            case UserRoleEnum.Online:
+                defaultLayout = LayoutEnum.OnlineLayout;
+                break;
+            case UserRoleEnum.Admin:
+                defaultLayout = LayoutEnum.AdminLayout;
+                break;
+            case UserRoleEnum.SeniorAdmin:
+                defaultLayout = LayoutEnum.Layout2;
+                break;
+            case UserRoleEnum.Guest:
+            default:
+                defaultLayout = LayoutEnum.PublicLayout;
+                break;
+        }
+        //const result = LocalStorageEncryptedWithReturnValueSet(AppConfiguration.Setting().defaultLayoutStorageKey, defaultLayout.toString());
+        const result = LocalStorageSet(AppConfiguration.Setting().defaultLayoutStorageKey, defaultLayout.toString());
+        return result === null || result === undefined ? '' : result;
+
+    }
+
+};
 export const authincateUser = (obj: AuthenticateUserRequest) => {
     return async (dispatch: any, getState: any) => {
         try {

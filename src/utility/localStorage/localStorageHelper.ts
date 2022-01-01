@@ -11,6 +11,14 @@ const LocalStorageEncryptedSet=(name :string,
     localStorage.setItem(name,encryptedValue);
 };
 
+const LocalStorageEncryptedWithReturnValueSet=(name :string,
+                                value:string,
+                                encryptKey:string=AppConfiguration.Setting().LocalStorageEncryptKey):string=>{
+    const encryptedValue:string=CryptoJS.AES.encrypt(value,encryptKey).toString();
+    localStorage.setItem(name,encryptedValue);
+    return  encryptedValue;
+};
+
 const LocalStorageGet=(name:string):string|null=>{
     return  localStorage.getItem(name);
 };
@@ -25,4 +33,11 @@ const LocalStorageClear=(name:string)=>{
     {localStorage.removeItem(name);}
 };
 
-export {LocalStorageSet,LocalStorageEncryptedSet,LocalStorageGet,LocalStorageEncryptedGet,LocalStorageClear};
+export {
+    LocalStorageSet,
+    LocalStorageEncryptedSet,
+    LocalStorageGet,
+    LocalStorageEncryptedGet,
+    LocalStorageClear,
+    LocalStorageEncryptedWithReturnValueSet
+};
