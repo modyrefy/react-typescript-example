@@ -2,14 +2,14 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as Yup from "yup"
 import {Field, Form, Formik} from "formik";
-import {Avatar, Button, Grid, makeStyles, Paper, TextField} from "@material-ui/core";
+import {Avatar, Button, Grid, Paper, TextField} from "@mui/material";
 import {authincateUser} from "../../slice/userAuthincateSlice";
 import {LoadingBox} from "../box/loadingBox";
 import {MessageBox} from "../box/messageBox";
 import {AuthenticateUserRequest} from "../../models/interfaces/user/authenticateUserRequest";
 import {IuserState} from "../../models/interfaces/user/userState";
 import { useNavigate } from 'react-router-dom';
-
+import {makeStyles} from "@mui/styles";
 
 
 export function LoginForm(props: any) {
@@ -27,7 +27,7 @@ export function LoginForm(props: any) {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor:'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)'
         },
     }));
     const avatarStyle = {backgroundColor: "#1bbd7e"};

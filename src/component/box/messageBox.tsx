@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
+import {makeStyles} from "@mui/styles";
 import {ValidationError} from "../../models/validation/validationError";
-import {Color} from "@material-ui/lab/Alert/Alert";
+import {Alert, AlertColor, Color} from "@mui/material";
 
 
 
@@ -10,7 +9,7 @@ import {Color} from "@material-ui/lab/Alert/Alert";
 
 export const MessageBox:FC<{
     errors?:ValidationError[],
-     severity?:Color,
+     severity?:AlertColor,
      variant?:string|null
 }>=
     ({errors, severity, variant})=> {
@@ -18,7 +17,7 @@ export const MessageBox:FC<{
         root: {
             width: '50%',
             '& > * + *': {
-                marginTop: theme.spacing(2),
+                //marginTop: theme.spacing(2),
             },
         },
     }));

@@ -1,9 +1,10 @@
 import React, {  FC } from "react";
-import {Backdrop, CircularProgress, makeStyles} from "@material-ui/core";
+import {Backdrop, CircularProgress} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 export const LoadingBox:FC<{}>=()=>{
     const useStyles = makeStyles((theme) => ({
         backdrop: {
-            zIndex: theme.zIndex.drawer + 1,
+            //zIndex: theme.zIndex.drawer + 1,
             color: '#fff',
         },
     }));

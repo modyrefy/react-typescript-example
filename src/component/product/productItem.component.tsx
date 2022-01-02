@@ -1,8 +1,7 @@
 import React, {  FC } from "react";
 import {Item} from "../../models/interfaces/item/Item";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import {
-    Avatar,
+
+import {Avatar,
     Box,
     Button,
     Card,
@@ -13,12 +12,12 @@ import {
     CardMedia,
     createStyles,
     IconButton,
-    makeStyles,
     Theme,
     Typography,
     MenuItem,
-    Menu
-} from "@material-ui/core";
+    Menu} from "@mui/material";
+import {makeStyles} from "@mui/styles";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 //#region style
 const styles = {
     card: {
@@ -50,7 +49,7 @@ const MyOptions = [
 //#endregion
 
 export const ProductItem:FC<{item:Item}>=({item})=>{
-    const classes = useStyles();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event:any) => {

@@ -1,6 +1,8 @@
 
-import {blue, deepOrange, green, indigo, red} from "@material-ui/core/colors";
+//import {blue, deepOrange, green, indigo, red} from "@material-ui/core/colors";
 
+
+import {indigo, deepOrange, green, red, blue} from "@mui/material/colors";
 
 export const defaultTheme = {
     palette: {

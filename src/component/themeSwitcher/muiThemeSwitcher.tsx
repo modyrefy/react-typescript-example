@@ -1,24 +1,24 @@
-import { createTheme } from '@material-ui/core/styles'
-import {blue, deepOrange, green, indigo, red} from '@material-ui/core/colors';
+
 import React, {FC} from "react";
-import {Theme} from "@material-ui/core/styles/createTheme";
 import {LocalStorageGet, LocalStorageSet} from "../../utility/localStorage/localStorageHelper";
 import {AppConfiguration} from "read-appsettings-json";
 import {createIntl} from "react-intl";
 import {AllLocalizationResourcesReactInt} from "../languageSwitcher/react-intl/langSwitcher";
+import {createTheme, Theme} from "@mui/material";
+import {blue, deepOrange, green, indigo, red} from "@mui/material/colors";
 
 
 
 const defaultTheme = createTheme({
     palette: {
-        type: "light",
+        mode: "light",
         primary: indigo,
         secondary: deepOrange,
     },
 });
 const darkTheme = createTheme({
     palette: {
-        type: "dark",
+        mode: "dark",
         primary: blue,
         secondary: green,
     },

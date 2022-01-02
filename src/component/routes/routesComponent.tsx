@@ -7,10 +7,9 @@ import {PrivateRoute} from "./authenticatedRoute";
 import {AuthenticatedComponent} from "../test/authenticatedComponent";
 import {MasterComponent} from "../layout/layout/masterComponenet";
 import {ReactI18TranslatorSample} from "../translatorExample/react-i18/reactI18TranslatorSample";
-import {ReactI18TranslatorSample1} from "../translatorExample/react-i18/ReactI18TranslatorSample1";
 import {ILayoutConfigurationBase} from "../../models/interfaces/layout/iLayoutBase";
 import {LayoutEnum} from "../../models/enums/enum";
-import {ReactInitTranslatorSample} from "../translatorExample/react-intl/reactInitTranslatorSample";
+import {ReactI18TranslatorSample1} from "../translatorExample/react-i18/ReactI18TranslatorSample1";
 
 export const RoutesComponent: FC<{}> = () => {
     let iLayoutConfigurationBase: ILayoutConfigurationBase = {layoutEnum: LayoutEnum.PublicLayout};
@@ -29,7 +28,7 @@ export const RoutesComponent: FC<{}> = () => {
                             <ReactI18TranslatorSample1/>,
                             <ReactI18TranslatorSample1/>,
                             <ReactI18TranslatorSample1/>
-                            ]}
+                        ]}
                         children={[
                             <ReactI18TranslatorSample1/>,
                         ]}
