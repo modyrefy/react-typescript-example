@@ -1,7 +1,7 @@
 import * as React from "react";
 import {FC} from "react";
 import {MasterLayout} from "./masterLayout";
-import {ILayoutConfigurationBase} from "../../models/interfaces/layout/iLayoutBase";
+import {ILayoutConfigurationBase} from "../../../models/interfaces/layout/iLayoutBase";
 
 //export const MasterComponent: FC<{layoutEnum: enums.LayoutEnum}> = ({layoutEnum}) => {
 export const MasterComponent: FC<{

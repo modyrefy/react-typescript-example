@@ -7,7 +7,8 @@ export const PublicMenu: FC<{}> = () => {
             <div >
                 <Link to={"/product"}>Products   </Link>
                 <Link  to={"/sign-in"}>Login   </Link>
-                <Link  to={"/sign-up"}>Sign up</Link>
+                <Link  to={"/sign-up"}>Sign up  </Link>
+                <Link  to={"/guest"}>guest</Link>
                 </div >
         </nav>
     </>)

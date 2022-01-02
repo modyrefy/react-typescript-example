@@ -7,7 +7,7 @@ import jaMessages from '../../../resources/react-intl/ja.json';
 import zhMessages from '../../../resources/react-intl/zh.json';
 import arMessages from '../../../resources/react-intl/ar.json';
 import {LocalStorageGet, LocalStorageSet} from "../../../utility/localStorage/localStorageHelper";
-import { createIntl, createIntlCache } from "react-intl";
+import {createIntl, createIntlCache, IntlProvider} from "react-intl";
 import {AppConfiguration} from "read-appsettings-json";
 import {languageListData} from "../../../resources/data/languageList";
 //#region variable
@@ -44,7 +44,6 @@ let int = createIntl(
 const translate = (id: string, values?: {}) => {
     return int.formatMessage({ id }, values);
 };
-
 const LangSwitcherReactInt: FC<{language:string,setLanguage:any }> = ({language=defaultUiLanguage,setLanguage})=>{
     const handleLanguageSelect = (e: any) => {
         //console.log("GetLanguagesTitle" +JSON.stringify( GetLanguagesTitle("en-US")));

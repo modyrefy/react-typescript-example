@@ -3,6 +3,7 @@ import {translate} from "../../languageSwitcher/react-intl/langSwitcher";
 import { FormattedMessage} from "react-intl";
 export const ReactInitTranslatorSample1 :FC<{}> = () => {
     return(<>
+        <p>************************</p>
             <p>BACK_BUTTON: { <FormattedMessage id="AUTH.GENERAL.BACK_BUTTON"/>}</p>
             <p>MIN_LENGTH_FIELD: { <FormattedMessage id="AUTH.VALIDATION.MIN_LENGTH_FIELD"/>}</p>
             <p>TITLE: { <FormattedMessage id="AUTH.LOGIN.TITLE"/>}</p>
