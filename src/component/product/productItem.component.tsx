@@ -18,6 +18,7 @@ import {Avatar,
     Menu} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {useTranslation} from "react-i18next";
 //#region style
 const styles = {
     card: {
@@ -62,8 +63,10 @@ export const ProductItem:FC<{item:Item}>=({item})=>{
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const {t} = useTranslation();
     return (
         <React.Fragment>
+            <p>Translate: {t("AUTH.LOGIN.TITLE")}</p>
         <div style={{ maxWidth:"100", display: "inline-block" }}>
             <Card style={{maxWidth:"200"}}>
                 <CardActionArea>

@@ -5,8 +5,9 @@ import {IuserState} from "../../models/interfaces/user/userState";
 
 export const PrivateRoute:FC<{children:any }>=({ children })=> {
     // @ts-ignore
-           const User = useSelector((state: IuserState) => ({...state.User}));
-    return User && User.isAuthenticated ? children : <Navigate to="/login" />;
+    const User = useSelector((state: IuserState) => ({...state.User}));
+    //console.log("user login "+JSON.stringify(User));
+    return User && User.isAuthenticated ? children : <Navigate to="/login"/>;
 }
 
 // export const  AuthenticatedRoute:FC<{component:ReactNode,rest:any}>=({component,...rest})=> {

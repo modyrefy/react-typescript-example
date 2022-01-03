@@ -19,8 +19,9 @@ export const MasterComponent: FC<{
             iLayoutConfiguration={iLayoutConfiguration}
             elements={elements}
         >
+
         </MasterLayout>
-        <p>vvvvvvvvvvvvvv</p>
+        {/*<p>vvvvvvvvvvvvvv</p>*/}
         {children}
     </>)
 }

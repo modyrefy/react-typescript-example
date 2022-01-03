@@ -23,8 +23,16 @@ const LocalStorageGet=(name:string):string|null=>{
     return  localStorage.getItem(name);
 };
 const LocalStorageEncryptedGet=(name:string ,
-                                encryptKey:string=AppConfiguration.Setting().LocalStorageEncryptKey):string|null=>{
-    return  localStorage.getItem(CryptoJS.AES.decrypt(name,encryptKey).toString());
+                                encryptKey:string=AppConfiguration.Setting().LocalStorageEncryptKey):string|null=> {
+
+    const value = localStorage.getItem(name);
+//    console.log("name---" +name + "value---" +value)
+    if (value !== null && value !== undefined) {
+        return CryptoJS.AES.decrypt(value, encryptKey).toString(CryptoJS.enc.Utf8);
+        // console.log("value111111111111111-----" );
+        // console.log("value-----" +finalValue);
+    }
+    return null;
 };
 const LocalStorageClear=(name:string)=>{
     if(name===null|| name===undefined|| name==='')

@@ -1,8 +1,8 @@
 export interface  IMenuBase
 {
     key:string,
-    Text:string,
-    Path:string,
-    IsAuthenticationRequired:boolean
+    text:string,
+    path:string,
+    isAuthenticationRequired:boolean
 
 }

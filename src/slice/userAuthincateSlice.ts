@@ -1,20 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {
-    LocalStorageEncryptedSet,
-    LocalStorageEncryptedWithReturnValueSet,
-    LocalStorageSet
-} from "../utility/localStorage/localStorageHelper";
+import {LocalStorageEncryptedSet, LocalStorageSet} from "../utility/localStorage/localStorageHelper";
 import {AuthenticateUserRequest} from "../models/interfaces/user/authenticateUserRequest";
 import defaultAxiosApiInstance from "../axios/defaultAxiosApiInstance";
 import {AuthenticateUserResponse, UserResponse} from "../models/interfaces/user/AuthenticateUserResponse";
 import {IuserState} from "../models/interfaces/user/userState";
 import {AppConfiguration} from "read-appsettings-json";
-import {number} from "yup";
 import {LayoutEnum, UserRoleEnum} from "../models/enums/enum";
 
 const initialState: IuserState = {
     userAccount: null,
-    userToken:null,
+    userToken: null,
     isLoading: false,
     isAuthenticated: false,
     errors: []
@@ -22,10 +17,10 @@ const initialState: IuserState = {
 
 const slice = createSlice({
     name: "UserAuthenticate",
-    initialState : initialState,
+    initialState: initialState,
     reducers: {
         setLoading: (state, action) => {
-           // alert('state ' +JSON.stringify(state));
+            // alert('state ' +JSON.stringify(state));
             return {
                 ...state,
                 isLoading: action.payload,
@@ -33,12 +28,13 @@ const slice = createSlice({
         },
         setAuthenticateSuccess: (state, action) => {
             const {response, token, remember} = action.payload;
-            generateUserDefaultLayoutStorage(response).then((r)=>{
+            generateUserDefaultLayoutStorage(response).then((r) => {
                 console.log(r);
             });
             if (remember === true) {
-                LocalStorageSet(AppConfiguration.Setting().authenticatedTokenStorageKey,JSON.stringify( token));
-                LocalStorageEncryptedSet(AppConfiguration.Setting().authenticatedUserStorageKey,JSON.stringify( response));
+               // console.log("response---- "+JSON.stringify(response))
+                LocalStorageSet(AppConfiguration.Setting().authenticatedTokenStorageKey, JSON.stringify(token));
+                LocalStorageEncryptedSet(AppConfiguration.Setting().authenticatedUserStorageKey, JSON.stringify(response));
             }
             return {
                 ...state,
@@ -72,10 +68,10 @@ const slice = createSlice({
 export default slice.reducer;
 const {setLoading, setAuthenticateSuccess, setAuthenticateFailed, setAuthenticationReset} = slice.actions;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-const  generateUserDefaultLayoutStorage =async(user:UserResponse):Promise<string|undefined> =>{
-   let defaultLayout:number=LayoutEnum.PublicLayout;
-    if(user!==null && user!=undefined) {
-        switch (user.RoleId) {
+const generateUserDefaultLayoutStorage = async (user: UserResponse): Promise<string | undefined> => {
+    let defaultLayout: number = LayoutEnum.PublicLayout;
+    if (user !== null && user != undefined) {
+        switch (user.roleId) {
             case UserRoleEnum.Online:
                 defaultLayout = LayoutEnum.OnlineLayout;
                 break;
@@ -103,24 +99,24 @@ export const authincateUser = (obj: AuthenticateUserRequest) => {
             dispatch(setLoading(true));
             await sleep(2000);
             const params = {...obj};
-           // alert('alert ' + JSON.stringify(params))
+            // alert('alert ' + JSON.stringify(params))
             let apiRespopnse: AuthenticateUserResponse;
             if (!AppConfiguration.Setting().isAuthenticationMockEnabled) {
                 apiRespopnse = await defaultAxiosApiInstance.post("user/authenticate", params);
             } else {
                 apiRespopnse = {
-                    response:{
-                        SsoAccountId:123,
-                        UserName:"mody",
-                        Email:"m@M.com",
-                        Mobile:"000000000",
-                        ParticipantNameAr:"ParticipantNameAr",
-                        ParticipantNameEn:"ParticipantNameEn",
-                        RoleId:123,
-                        IsUserVerified:true
-                    }  ,
+                    response: {
+                        ssoAccountId: 123,
+                        userName: "mody",
+                        email: "m@M.com",
+                        mobile: "000000000",
+                        participantNameAr: "ParticipantNameAr",
+                        participantNameEn: "ParticipantNameEn",
+                        roleId: 123,
+                        isUserVerified: true
+                    },
                     token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.cThIIoDvwdueQB468K5xDc5633seEFoqwxjF_xSJyQQ",
-                    errors:undefined
+                    errors: undefined
                     //     [
                     //     {message: "error-no-1"},
                     //     {message: "error-no-2"},
