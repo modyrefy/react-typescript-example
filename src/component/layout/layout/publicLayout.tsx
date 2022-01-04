@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import * as React from "react";
 import {LayoutHeader} from "../header/layoutHeader";
 import {LayoutFooter} from "../footer/layoutFooter";
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         minWidth: 700
     }
 }));
-export const PublicLayout:FC<{elements?:React.ReactNode[]}> = ({elements}) => {
+export const PublicLayout:FC<{children?: ReactNode | undefined}> = ({children}) => {
     const classes = useStyles();
     return (<>
         <Paper className={classes.root}>
@@ -37,7 +37,7 @@ export const PublicLayout:FC<{elements?:React.ReactNode[]}> = ({elements}) => {
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell colSpan={2}>{elements}</TableCell>
+                            <TableCell colSpan={2}>{children}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell colSpan={2}>{<LayoutFooter/>}</TableCell>

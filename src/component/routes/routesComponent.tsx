@@ -5,14 +5,10 @@ import {LoginForm} from "../authentication/loginForm";
 import ProductList from "../product/productList.component";
 import {PrivateRoute} from "./authenticatedRoute";
 import {AuthenticatedComponent} from "../test/authenticatedComponent";
-import {MasterComponent} from "../layout/layout/masterComponenet";
 import {ReactI18TranslatorSample} from "../translatorExample/react-i18/reactI18TranslatorSample";
-import {ILayoutConfigurationBase} from "../../models/interfaces/layout/iLayoutBase";
-import {LayoutEnum} from "../../models/enums/enum";
 import {ReactI18TranslatorSample1} from "../translatorExample/react-i18/ReactI18TranslatorSample1";
-import {IMenuBase} from "../../models/interfaces/menu/iMenuBase";
-import {ValidationError} from "../../models/validation/validationError";
 import {ProductDetail} from "../product/productDetail.component";
+import {MasterLayout} from "../layout/layout/MasterLayout";
 
 interface IComponent{
     component:React.ReactNode,
@@ -57,41 +53,36 @@ export const RoutesComponent: FC<{}> = () => {
                 {/*        ]} />}/>*/}
                 {/*    ))*/}
                 {/*}*/}
-                <Route path='/login' element={<MasterComponent elements={[<LoginForm/>]} />}/>
-                <Route path="/sign-in" element={<MasterComponent elements={[<LoginForm/>]} />}/>
-                <Route path="/sign-up"  element={<MasterComponent elements={[<SignUp/>]} />}/>
-                <Route path="/common-products"  element={<MasterComponent elements={[<ProductList/>]} />}/>
-                <Route path="/product-detail/:id"  element={<MasterComponent elements={[<ProductDetail/>]} />}/>
-                <Route path="/products" element=
-                    {<PrivateRoute>
-                        {<MasterComponent elements={[<ProductList/>]} />}
-                    </PrivateRoute>
-                    }/>
-                <Route path="/guest" element=
-                    {<MasterComponent
-                        elements={[
-                            <ReactI18TranslatorSample/>,
-                            <ReactI18TranslatorSample1/>,
-                            <ReactI18TranslatorSample1/>,
-                            <ReactI18TranslatorSample1/>,
-                            <ReactI18TranslatorSample1/>
-                        ]}
-                        children={[
-                            <ReactI18TranslatorSample1/>,
-                        ]}
-                    ></MasterComponent>}
-                />
+                {/*<Route path='/login' element={<MasterLayout> <LoginForm/> </MasterLayout>}/>*/}
+                {/*<Route path="/sign-in"  element={<MasterLayout> <LoginForm/> </MasterLayout>}/>*/}
+                {/*<Route path="/sign-up"  element={<MasterLayout> <SignUp/> </MasterLayout>}/>*/}
+                <Route path="/common-products"  element={<MasterLayout> <ProductList/> </MasterLayout>}/>
+                <Route path="/product-detail/:id"  element={<MasterLayout><ProductDetail/></MasterLayout>}/>
+                {/*<Route path="/products" element=*/}
+                {/*    {<PrivateRoute>*/}
+                {/*        {<MasterLayout> <ProductList/> </MasterLayout>}*/}
+                {/*    </PrivateRoute>*/}
+                {/*    }/>*/}
+                {/*/!*<Route path="/guest" element=*!/*/}
+                {/*/!*    {<MasterLayout>*!/*/}
+                {/*/!*        <ReactI18TranslatorSample/>*!/*/}
+                {/*/!*        <ReactI18TranslatorSample1/>*!/*/}
+                {/*/!*        <ReactI18TranslatorSample1/>,*!/*/}
+                {/*/!*        <ReactI18TranslatorSample1/>,*!/*/}
+                {/*/!*        <ReactI18TranslatorSample1/>,*!/*/}
+                {/*/!*        <ReactI18TranslatorSample1/>*!/*/}
+                {/*/!*    </MasterLayout>} />*!/*/}
                 <Route path="/" element=
                     {<PrivateRoute>
-                        {<MasterComponent elements={[<AuthenticatedComponent/>]} />}
+                        {<MasterLayout><AuthenticatedComponent/> </MasterLayout>}
                     </PrivateRoute>
                     }/>
 
-                <Route path="/private" element=
-                    {<PrivateRoute>
-                        {<MasterComponent elements={[<AuthenticatedComponent/>]} />}
-                    </PrivateRoute>
-                    }/>
+                {/*<Route path="/private" element=*/}
+                {/*    {<PrivateRoute>*/}
+                {/*        {<MasterLayout><AuthenticatedComponent/> </MasterLayout>}*/}
+                {/*    </PrivateRoute>*/}
+                {/*    }/>*/}
 
             </Routes>
         </>
