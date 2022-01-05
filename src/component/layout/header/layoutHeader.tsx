@@ -1,6 +1,6 @@
 import React, { FC} from "react";
 import { LangSwitcherReactI18} from "../../languageSwitcher/react-i18/langSwitcher";
-import {PublicMenu} from "../../menu/publicMenu";
+import {PublicMenu} from "../../Menu/publicMenu";
 export const LayoutHeader: FC<any> = () => {
     return (
         <>

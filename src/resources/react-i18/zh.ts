@@ -65,5 +65,13 @@ export const TRANSLATIONS_ZH={
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.TITLE": "Status has been updated for selected customers",
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.MESSAGE": "Selected customers status have successfully been updated",
   "ECOMMERCE.CUSTOMERS.EDIT.UPDATE_MESSAGE": "Customer has been updated",
-  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created"
+  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created",
+  //Menu-Data
+  "Routes.Home": "Home-zh",
+  "Routes.Login": "Login-zh",
+  "Routes.Signup": "Signup-zh",
+  "Routes.Products": "Products-zh",
+  "Routes.Common.Products": "Common-Products-zh",
+  "Routes.Private": "Private-zh",
+  "Routes.Public": "Public-zh",
 }

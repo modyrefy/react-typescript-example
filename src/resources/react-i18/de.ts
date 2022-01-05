@@ -65,5 +65,13 @@ export const TRANSLATIONS_DE={
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.TITLE": "Status has been updated for selected customers",
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.MESSAGE": "Selected customers status have successfully been updated",
   "ECOMMERCE.CUSTOMERS.EDIT.UPDATE_MESSAGE": "Customer has been updated",
-  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created"
+  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created",
+  //Menu-Data
+  "Routes.Home": "Home-de",
+  "Routes.Login": "Login-de",
+  "Routes.Signup": "Signup-de",
+  "Routes.Products": "Products-de",
+  "Routes.Common.Products": "Common-Products-de",
+  "Routes.Private": "Private-de",
+  "Routes.Public": "Public-de",
 }

@@ -1,4 +1,4 @@
-import React, {FC, useContext} from "react";
+import React, {FC} from "react";
 import {Link} from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,9 +15,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {IMenuBase} from "../../models/interfaces/menu/iMenuBase";
-import { useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {IuserState} from "../../models/interfaces/user/userState";
+import {useTranslation} from 'react-i18next';
+import {RouteItems} from "../../resources/data/Routes/RouteData";
+import {PublicMenuData} from "../../resources/data/Menu/PublicMenu";
 
 export const PublicMenu: FC<{}> = () => {
     const drawerWidth = 240;
@@ -26,34 +28,17 @@ export const PublicMenu: FC<{}> = () => {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    // const { window } = props;
-    // const container = window !== undefined ? () => window().document.body : undefined;
-    const iMenuBase: IMenuBase[] = [
-        {key: "products", text: "Products", path: "/products", isAuthenticationRequired: true},
-        {key: "public_product", text: "Common Products", path: "/common-products", isAuthenticationRequired: false},
-        {key: "product_Detail", text: "Product Detail", path: "/product-detail", isAuthenticationRequired: false},
-        {key: "login", text: "Login", path: "/sign-in", isAuthenticationRequired: true},
-        {key: "guest", text: "Guest", path: "/guest", isAuthenticationRequired: true}
 
-    ];
-
-    // const iServerMenuBase: IMenuBase[] = [
-    //     {key: "product", text: "Products", path: "/product", isAuthenticationRequired: true},
-    //     {key: "public_product", text: "Common Products", path: "/commonproduct", isAuthenticationRequired: false},
-    //     {key: "login2", text: "Login", path: "/sign-in", isAuthenticationRequired: true},
-    //     {key: "guest2", text: "Guest", path: "/guest", isAuthenticationRequired: true}
-    //
-    // ];
-    // const data=iServerMenuBase.filter((row)=>{
-    //     return iMenuBase.filter(k=>k.key===row.key).length!=0
-    // });
-        //console.log("data-----"+JSON.stringify(data));
     //alert('menu drawing')
     // @ts-ignore
     const user = useSelector((state: IuserState) => ({...state.User}));
-    const isAuthenticated:boolean =user?.isAuthenticated??false ;
-   // console.log('store '+ JSON.stringify(useContext(ReactReduxContext)));
+    const isAuthenticated: boolean = user?.isAuthenticated ?? false;
+    const {t} = useTranslation();
 
+    const menuData = RouteItems.filter((element) => {
+        return PublicMenuData.indexOf(x => x.key == element.key) !==-1;
+    })
+    console.log("menu-data "+ JSON.stringify(menuData))
     const drawer = (
         <div>
             <Toolbar/>
@@ -61,15 +46,15 @@ export const PublicMenu: FC<{}> = () => {
             <List>
                 {
                     //.filter(p=>p.isAuthenticationRequired==true)
-                iMenuBase.map((row, index) => (
-                         <Link to={row.path}>
-                    <ListItem button key={row.key}>
-                    <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                    </ListItemIcon>
-                    <ListItemText primary={row.text}/>
-                    </ListItem>
-                    </Link>
+                    RouteItems.map((row, index) => (
+                        <Link to={row.path}>
+                            <ListItem button key={row.key}>
+                                <ListItemIcon>
+                                    {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                                </ListItemIcon>
+                                <ListItemText primary={t(row.title)}/>
+                            </ListItem>
+                        </Link>
                     ))}
             </List>
             <Divider/>

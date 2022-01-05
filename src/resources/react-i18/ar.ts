@@ -65,5 +65,13 @@
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.TITLE": "Status has been updated for selected customers",
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.MESSAGE": "Selected customers status have successfully been updated",
   "ECOMMERCE.CUSTOMERS.EDIT.UPDATE_MESSAGE": "Customer has been updated",
-  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created"
+  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created",
+   //Menu-Data
+   "Routes.Home": "Home-ar",
+   "Routes.Login": "Login-ar",
+   "Routes.Signup": "Signup-ar",
+   "Routes.Products": "Products-ar",
+   "Routes.Common.Products": "Common-Products-ar",
+   "Routes.Private": "Private-ar",
+   "Routes.Public": "Public-ar",
 };

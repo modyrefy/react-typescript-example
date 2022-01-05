@@ -1,4 +1,5 @@
-export const TRANSLATIONS_EN={
+
+export const TRANSLATIONS_EN= {
   "TRANSLATOR.SELECT": "Select your language",
   "MENU.NEW": "new",
   "MENU.ACTIONS": "Actions",
@@ -65,5 +66,13 @@ export const TRANSLATIONS_EN={
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.TITLE": "Status has been updated for selected customers",
   "ECOMMERCE.CUSTOMERS.UPDATE_STATUS.MESSAGE": "Selected customers status have successfully been updated",
   "ECOMMERCE.CUSTOMERS.EDIT.UPDATE_MESSAGE": "Customer has been updated",
-  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created"
+  "ECOMMERCE.CUSTOMERS.EDIT.ADD_MESSAGE": "Customer has been created",
+  //Menu-Data
+  "Routes.Home": "Home-en",
+  "Routes.Login": "Login-en",
+  "Routes.Signup": "Signup-en",
+  "Routes.Products": "Products-en",
+  "Routes.Common.Products": "Common-Products-en",
+  "Routes.Private": "Private-en",
+  "Routes.Public": "Public-en",
 }

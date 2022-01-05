@@ -4,7 +4,7 @@ import {LayoutHeader} from "../header/layoutHeader";
 import {LayoutFooter} from "../footer/layoutFooter";
 import {makeStyles} from "@mui/styles";
 import {Paper, Table, TableBody,TableRow,TableCell} from "@mui/material";
-import {PublicMenu} from "../../menu/publicMenu";
+import {PublicMenu} from "../../Menu/publicMenu";
 
 
 const useStyles = makeStyles(theme => ({
