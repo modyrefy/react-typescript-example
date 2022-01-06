@@ -8,7 +8,20 @@ import Signup from "../../../component/authentication/signup.component";
 import ProductList from "../../../component/product/productList.component";
 import {PrivateRoute} from "../../../component/routes/authenticatedRoute";
 
+
+// Lazy load component
+
 export const RouteItems: IRouteBase[] =[
+    {
+
+        key: "home-test",
+        title: "Routes.Home",
+        path: '/test',
+        isAuthenticationRequired: true,
+        content: (<MasterLayout>
+            <HomeComponent/>
+        </MasterLayout>)
+    },
     {
         key: "home",
         title: "Routes.Home",
@@ -75,5 +88,19 @@ export const RouteItems: IRouteBase[] =[
             <AuthenticatedComponent/>
             <AuthenticatedComponent/>
         </MasterLayout>)
+    },
+];
+
+export const DynamicRouteItems: IRouteBase[]=[
+    {
+
+        key: "home-test",
+        title: "Routes.Home",
+        path: '/test55',
+        isAuthenticationRequired: true,
+        content: (<MasterLayout>
+            <LoginForm/>
+        </MasterLayout>),
+        componentName:"../../../component/Home/HomeComponent"
     },
 ];

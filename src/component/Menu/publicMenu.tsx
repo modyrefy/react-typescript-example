@@ -29,15 +29,16 @@ export const PublicMenu: FC<{}> = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    //alert('menu drawing')
+    alert('menu drawing')
     // @ts-ignore
     const user = useSelector((state: IuserState) => ({...state.User}));
     const isAuthenticated: boolean = user?.isAuthenticated ?? false;
     const {t} = useTranslation();
 
-    const menuData = RouteItems.filter((element) => {
-        return PublicMenuData.indexOf(x => x.key == element.key) !==-1;
-    })
+    // const menuData = RouteItems.filter((element) => {
+    //     return PublicMenuData.indexOf(x => x.key == element.key) !==-1;
+    // })
+    let menuData = RouteItems.filter(o1 => PublicMenuData.some(o2 => o1.key === o2.key));
     console.log("menu-data "+ JSON.stringify(menuData))
     const drawer = (
         <div>
@@ -46,7 +47,7 @@ export const PublicMenu: FC<{}> = () => {
             <List>
                 {
                     //.filter(p=>p.isAuthenticationRequired==true)
-                    RouteItems.map((row, index) => (
+                    menuData.map((row, index) => (
                         <Link to={row.path}>
                             <ListItem button key={row.key}>
                                 <ListItemIcon>

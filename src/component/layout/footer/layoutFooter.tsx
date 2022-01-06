@@ -1,11 +1,12 @@
 import React, { ReactElement, FC } from "react";
-export const LayoutFooter: FC<any> = () => {
+export  const LayoutFooter: FC<any> = () => {
     return (
         <div>
             <p>Footer</p>
         </div>
     );
 };
+
 
 
 // export default Header;

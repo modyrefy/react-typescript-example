@@ -5,5 +5,16 @@ export interface IRouteBase {
     title: string,
     path: string,
     isAuthenticationRequired: boolean
-    content: string | React.ReactNode;
+    content: string | React.ReactNode,
+    jsxContent?:JSX.Element,
+    componentName?:string
+}
+
+export interface IDynamicRouteBase {
+    key: string,
+    title: string,
+    path: string,
+    isAuthenticationRequired: boolean
+    jsxContent:React.ReactNode|null,
+    componentName?:string
 }

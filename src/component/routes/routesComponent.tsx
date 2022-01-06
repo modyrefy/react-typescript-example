@@ -1,8 +1,15 @@
 //https://pramodmaali.medium.com/dynamic-routing-with-json-config-react-typescript-284e562390b6
 //https://github.com/malipramod/dynamic-routing-with-json-react
-import React, {FC} from "react";
-import {Route, Routes} from "react-router-dom";
-import {RouteItems} from "../../resources/data/Routes/RouteData";
+//https:reactrouter.com/docs/en/v6/examples/auth
+import React, {FC, lazy,Suspense} from "react";
+import {Route, Routes,Navigate} from "react-router-dom";
+import {DynamicRouteItems, RouteItems} from "../../resources/data/Routes/RouteData";
+import {PublicLayout} from "../layout/layout/publicLayout";
+import Signup from "../authentication/signup.component";
+import {CustomLayout} from "../layout/layout/CustomLayout";
+import {MasterLayout} from "../layout/layout/MasterLayout";
+import {LayoutFooter} from "../layout/footer/layoutFooter";
+import {IDynamicRouteBase, IRouteBase} from "../../models/interfaces/menu/IRouteBase";
 
 
 export const Container: FC<{}> = (props) => {
@@ -13,15 +20,69 @@ export const Container: FC<{}> = (props) => {
     );
 }
 export const RoutesComponent: FC<{}> = () => {
+    const OtherComponent = React.lazy(() => import('../authentication/signup.component'));
+
+    const Calendar = React.lazy(() => {
+        return new Promise(resolve => setTimeout(resolve, 5 * 1000)).then(
+            () =>
+                Math.floor(Math.random() * 10) >= 4
+                    ? import("../authentication/signup.component")
+                    : Promise.reject(new Error())
+        );
+    });
+
+
+    const Calendar1 = React.lazy(() =>
+        import("../authentication/signup.component")
+    );
+    //const t1=DynamicRouteItems;
+    // const dynamicRouteList:IDynamicRouteBase[]=[];
+    // DynamicRouteItems.map(item=>{
+    //     dynamicRouteList.push({
+    //         key:item.key,
+    //         title:item.title,
+    //         path:item.path,
+    //         isAuthenticationRequired:item.isAuthenticationRequired,
+    //         jsxContent:  <Container> {(  lazy(() => import(item.componentName||""))} </Container>
+    //     });
+    // });
     return (
         <>
-            *<Routes>
-            {RouteItems.map(item => (
-                <Route
-                    element={<Container>{item.content} </Container>}
-                    path={item.path}/>
-            ))}
-        </Routes>
+            <Routes>
+                {/*{dynamicRouteList.map(item => (*/}
+                {/*    <Route*/}
+                {/*         element={<Container>{item.jsxContent} </Container>}*/}
+                {/*        //element={item.jsxContent}*/}
+                {/*        path={item.path}/>*/}
+                {/*))}*/}
+
+
+                {RouteItems.map(item => (
+                    <Route
+                        element={<Container>{item.content} </Container>}
+                        path={item.path}/>
+                ))}
+                <Route path="/test" element={<Navigate to="/home-test" />} />
+                <Route path="/" element={<CustomLayout />}>
+                    <Route   path="sign-up1"  element={
+                        <React.Suspense fallback={<>...</>}>
+                        <Signup/>
+                        </React.Suspense>
+                    }/>
+                </Route>
+                <Route path="sign-up2" element={<Signup/>}/>
+                <Route path="/sign-up4" element={OtherComponent}/>
+                <Route path="/sign-up3" element={
+                    <Suspense fallback={<>loading...</>}>
+                        {lazy(() => import('../authentication/signup.component'))}
+                    </Suspense>
+                }/>
+                <Route path="/sign-up5" element={
+                    <Suspense fallback={<>loading...</>}>
+                        <Calendar1/>
+                    </Suspense>
+                }/>
+            </Routes>
             {/*<Routes>*/}
             {/*    /!*{*!/*/}
             {/*    /!*    iServerMenuBase.map((row, index) => (*!/*/}
