@@ -29,7 +29,7 @@ export const PublicMenu: FC<{}> = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    alert('menu drawing')
+    //alert('menu drawing')
     // @ts-ignore
     const user = useSelector((state: IuserState) => ({...state.User}));
     const isAuthenticated: boolean = user?.isAuthenticated ?? false;
