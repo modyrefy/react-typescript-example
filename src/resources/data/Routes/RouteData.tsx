@@ -7,6 +7,7 @@ import {HomeComponent} from "../../../component/Home/HomeComponent";
 import Signup from "../../../component/authentication/signup.component";
 import ProductList from "../../../component/product/productList.component";
 import {PrivateRoute} from "../../../component/routes/authenticatedRoute";
+import {DocumentUploader} from "../../../component/FileUploader/DocumentUploader";
 
 
 // Lazy load component
@@ -29,10 +30,7 @@ export const RouteItems: IRouteBase[] =[
         isAuthenticationRequired: true,
         content: (<MasterLayout>
             <HomeComponent/>
-            <HomeComponent/>
-            <HomeComponent/>
-            <HomeComponent/>
-            <HomeComponent/>
+         <DocumentUploader/>
         </MasterLayout>)
     },
     {

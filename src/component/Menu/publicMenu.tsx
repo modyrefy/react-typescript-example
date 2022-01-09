@@ -39,7 +39,7 @@ export const PublicMenu: FC<{}> = () => {
     //     return PublicMenuData.indexOf(x => x.key == element.key) !==-1;
     // })
     let menuData = RouteItems.filter(o1 => PublicMenuData.some(o2 => o1.key === o2.key));
-    console.log("menu-data "+ JSON.stringify(menuData))
+    //console.log("menu-data "+ JSON.stringify(menuData))
     const drawer = (
         <div>
             <Toolbar/>
