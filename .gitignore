@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# test-iframe-project
+/test-iframe/bin
+/test-iframe/obj
 # testing
 /coverage
 
