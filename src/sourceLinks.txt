@@ -4,6 +4,9 @@ https://levelup.gitconnected.com/share-localstorage-sessionstorage-between-diffe
 https://www.google.com/search?q=Share+LocalStorage%2FSessionStorage+between+different+domains&client=avast-a-2&sxsrf=AOaemvIgYFDBId8Tq58YTm2e4Ui49mNJ-A%3A1641736501349&ei=NenaYZLqFOmEjLsPmY6umAQ&ved=0ahUKEwjS2OiH6aT1AhVpAmMBHRmHC0MQ4dUDCA4&uact=5&oq=Share+LocalStorage%2FSessionStorage+between+different+domains&gs_lcp=Cgdnd3Mtd2l6EAMyBQgAEIAESgQIQRgASgQIRhgAUABYAGCKBmgAcAJ4AIABswKIAbMCkgEDMy0xmAEAoAECoAEBwAEB&sclient=gws-wiz
 
 
+documents uploader
+https://stackblitz.com/edit/react-bvfjbb-5p7rnw-xfi1ag?file=app%2Fmain.jsx
+
 
 https://dev.to/iamandrewluca/private-route-in-react-router-v6-lg5
 https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/
