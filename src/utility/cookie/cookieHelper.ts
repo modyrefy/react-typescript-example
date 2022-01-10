@@ -1,4 +1,5 @@
-import * as Cookies from "js-cookie";
+import Cookies from 'js-cookie'
+//import Cookies = require('js-cookie');
 import CryptoJS from "crypto-js";
 import {AppConfiguration} from "read-appsettings-json";
 
