@@ -57,6 +57,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "start2": "set HTTPS=true&&set  PORT=3006 && react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
