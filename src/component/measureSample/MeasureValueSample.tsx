@@ -1,12 +1,13 @@
-import {FC, useEffect, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 import {UploadFileInfo} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadFileInfo";
 import _ from "lodash";
 import {MeasureSection} from "../LodashSample/MeasureSection";
+import {isArabicCurrentLanguage} from "../../utility/localiztion/localization";
 export interface MeasurevalueModel {
     requestMeasureValueId: number;
     nameAr: string;
     nameEn: string;
-    value: number | null;
+    value: number ;
     orderId: number;
     isSelected: boolean;
 }
@@ -57,7 +58,7 @@ export const MeasureValueComponent:FC<{}>=()=> {
                         nameEn: "yest-en",
                         value: 2,
                         orderId: 1,
-                        isSelected: false
+                        isSelected: true
                     },
                     {
                         requestMeasureValueId: 17281,
@@ -230,6 +231,16 @@ export const MeasureValueComponent:FC<{}>=()=> {
         setData(getData);
         setResult(list);
     }, []);
+    const isLanguageArabic:boolean=isArabicCurrentLanguage();
+   const  onChangeValue=(event:ChangeEvent<HTMLInputElement>)=> {
+       //console.log(event)
+        console.log(event.target.value);
+        const measureObjet: LodashMeasure[] ={...result};
+       //console.log('measureObjet  '+ JSON.stringify(measureObjet));
+       //   let row=measureObjet.filter(p=>p.requestMeasureModel.filter(x=>x.requestMeasureId==Number(event.target.value)));
+        //let row=_.filter(measureObjet.re)
+       //   console.log('row '+ JSON.stringify(row));
+    }
      return (<>
         <p>Measure -Values -Lodash Component</p>
          {
@@ -238,14 +249,47 @@ export const MeasureValueComponent:FC<{}>=()=> {
                  // return   (<p>section-Id-- {row.sectionId} </p>)
                return   row.requestMeasureModel.map((record, recordIndex) => {
                      return (<>
+                             <div className="panel panel-default">
+                                 <div className="panel-heading">{isLanguageArabic? record.sectionNameAr:record.sectionNameEn}</div>
+                                 <div className="panel-body">
+                                     <table>
+                                         <thead>
+                                         <td>Mandatory</td>
+                                         <td>Measure</td>
+                                         <td>Value</td>
+                                         </thead>
+                                         <tbody>
+                                         <tr>
+                                             <td>    {record.isMandatory?<div>*</div>:<div></div>}</td>
+                                             <td> {isLanguageArabic?record.nameAr:record.nameEn}</td>
+                                             <td>
+                                                 {record.measureValues.sort(p=>p.orderId).map((val)=>{
+                                                     return(<>
+                                                         <input
+                                                         type="radio"
+                                                         value={val.requestMeasureValueId}
+                                                         name={record.requestMeasureId.toString()}
+                                                         //checked={val.isSelected}
+                                                         onChange={onChangeValue}
+                                                     /> {isLanguageArabic?val.nameAr:val.nameEn}</>)
 
-                             <p>section- {record.inspectionSectionId} --  {record.nameEn}</p>
-                             {record.isMandatory?<div>*</div>:<div></div>}
-                             {record.measureTypeId==1?<>radio-button</>:<></>}
-                             {record.measureTypeId==2?<>checkbox-button</>:<></>}
-                             {record.measureTypeId==3?<>droplist-button</>:<></>}
-                             {record.measureTypeId==4?<>text-button</>:<></>}
+                                                 })}
+                                             </td>
+                                         </tr>
+                                         </tbody>
+                                     </table>
+
+
+                                     {/*{record.measureTypeId==1?<>radio-button</>:<></>}*/}
+                                     {/*{record.measureTypeId==2?<>checkbox-button</>:<></>}*/}
+                                     {/*{record.measureTypeId==3?<>droplist-button</>:<></>}*/}
+                                     {/*{record.measureTypeId==4?<>text-button</>:<></>}*/}
+
+                                 </div>
+                             </div>
+
                          </>
+
                          )
                  })
              })

@@ -14,3 +14,6 @@ export const getLanguageKey=(code:string):string=>{
 export const GetLanguagesTitle=(key:string):any=>{
     return languageListData.filter(p => p.key == key.toLowerCase())[0];
 }
+export  const isArabicCurrentLanguage=():boolean=>{
+    return  false;
+};
