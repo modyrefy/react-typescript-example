@@ -1,9 +1,11 @@
-import {ChangeEvent, FC, useEffect, useState} from "react";
-import {UploadFileInfo} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadFileInfo";
+import {ChangeEvent, FC, MouseEventHandler, useEffect, useState} from "react";
 import _ from "lodash";
-import {MeasureSection} from "../LodashSample/MeasureSection";
 import {isArabicCurrentLanguage} from "../../utility/localiztion/localization";
-export interface MeasurevalueModel {
+import {MeasureRadioButtonListTemplate} from "./MeasureRadioButtonListTemplate";
+import {MeasureCommentTextBoxTemplate} from "./MeasureCommentTextBoxTemplate";
+import {LoadingBox} from "../box/loadingBox";
+import {useTranslation} from "react-i18next";
+export interface MeasureValueModel {
     requestMeasureValueId: number;
     nameAr: string;
     nameEn: string;
@@ -25,16 +27,20 @@ export interface RequestMeasureModel {
     sectionNameEn: string;
     value: string| null;
     comment: string| null;
-    measureValues: MeasurevalueModel[];
+    measureValues: MeasureValueModel[];
 }
-export interface LodashMeasure{
-    requestMeasureModel:RequestMeasureModel[],
-    sectionId:string
-
+export interface MeasureSectionModel{
+    inspectionSectionId:number,
+    sectionNameAr:string,
+    sectionNameEn:string,
+    sectionOrderId:number
 }
 export const MeasureValueComponent:FC<{}>=()=> {
     const [data, setData] = useState<RequestMeasureModel[]>([]);
-    const [result, setResult] = useState<LodashMeasure[]>([]);
+    const [sectionData, setSectionData] = useState<MeasureSectionModel[]>([]);
+    const [loading, setLoading] = useState(false);
+    //const [result, setResult] = useState<LodashMeasure[]>([]);
+
     const getData = (): RequestMeasureModel[] => {
         return [] = [
             {
@@ -224,75 +230,121 @@ export const MeasureValueComponent:FC<{}>=()=> {
     };
     useEffect(() => {
         const measureList: RequestMeasureModel[] = getData();
-        const list: LodashMeasure[] = _.chain(measureList).groupBy("inspectionSectionId").map((value, key) => ({
-            sectionId: key,
-            requestMeasureModel: value
-        })).value();
+        //// @ts-ignore
+        const sectionList: MeasureSectionModel[] = _.sortBy(_.uniqBy(_.map(measureList, _.partialRight(_.pick, ['inspectionSectionId', 'sectionNameAr', 'sectionNameEn', 'sectionOrderId'])), 'inspectionSectionId'), ['sectionOrderId']) as MeasureSectionModel[];//|Partial<unknown>[]
+        setSectionData(sectionList);
+        // const list: LodashMeasure[] = _.chain(measureList).groupBy("inspectionSectionId").map((value, key) => ({
+        //     sectionId: key,
+        //     requestMeasureModel: value
+        // })).value();
         setData(getData);
-        setResult(list);
+        //  setResult(list);
+        //console.log('mapped '+ JSON.stringify(sectionList))
     }, []);
-    const isLanguageArabic:boolean=isArabicCurrentLanguage();
-   const  onChangeValue=(event:ChangeEvent<HTMLInputElement>)=> {
-       //console.log(event)
-        console.log(event.target.value);
-        const measureObjet: LodashMeasure[] ={...result};
-       //console.log('measureObjet  '+ JSON.stringify(measureObjet));
-       //   let row=measureObjet.filter(p=>p.requestMeasureModel.filter(x=>x.requestMeasureId==Number(event.target.value)));
-        //let row=_.filter(measureObjet.re)
-       //   console.log('row '+ JSON.stringify(row));
+    const isLanguageArabic: boolean = isArabicCurrentLanguage();
+    const {t} = useTranslation();
+    const getRecord=(requestMeasureData: RequestMeasureModel[] ,id:number):RequestMeasureModel|null=> {
+        const record: RequestMeasureModel = _.find(requestMeasureData, (obj) => {
+            return obj.requestMeasureId === id
+        }) as RequestMeasureModel;
+        return record
     }
-     return (<>
+    const updateRecords=(requestMeasureData: RequestMeasureModel[] ,record: RequestMeasureModel ): RequestMeasureModel[]=>{
+        _.remove(requestMeasureData, (obj) => {
+            return obj.requestMeasureId === record.requestMeasureId
+        });
+        _.chain(requestMeasureData).push(record);
+        return  requestMeasureData;
+    }
+    //#region events
+    const sleep = (milliseconds:number) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+    const handleTextBoxChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.name + ' --- ' + event.target.value);
+        const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
+        const record=getRecord(requestMeasureData,Number( event.target.name))
+        if (record != null) {
+            record.comment=event.target.value;
+            setData(updateRecords(requestMeasureData,record));
+        }
+    }
+    const handleRadioButtonChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.name + ' --- ' + event.target.value);
+        const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
+        const record=getRecord(requestMeasureData,Number( event.target.name))
+        if (record != null) {
+            record.measureValues.forEach(r => r.isSelected = r.requestMeasureValueId === Number(event.target.value) ? true : false);
+            setData(updateRecords(requestMeasureData,record));
+        }
+    }
+    const handleSaveButton=async (event: any)=>{
+        setLoading(true);
+        event.preventDefault();
+        await sleep(1000) //wait 1 seconds
+        const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
+        console.log('button '+  JSON.stringify(requestMeasureData));
+        setLoading(false);
+    }
+    //#endregion
+    return (<>
         <p>Measure -Values -Lodash Component</p>
-         {
-             result.map((row, index) => {
-                 // console.log("inspectionSectionId "+JSON.stringify( row))
-                 // return   (<p>section-Id-- {row.sectionId} </p>)
-               return   row.requestMeasureModel.map((record, recordIndex) => {
-                     return (<>
-                             <div className="panel panel-default">
-                                 <div className="panel-heading">{isLanguageArabic? record.sectionNameAr:record.sectionNameEn}</div>
-                                 <div className="panel-body">
-                                     <table>
-                                         <thead>
-                                         <td>Mandatory</td>
-                                         <td>Measure</td>
-                                         <td>Value</td>
-                                         </thead>
-                                         <tbody>
-                                         <tr>
-                                             <td>    {record.isMandatory?<div>*</div>:<div></div>}</td>
-                                             <td> {isLanguageArabic?record.nameAr:record.nameEn}</td>
-                                             <td>
-                                                 {record.measureValues.sort(p=>p.orderId).map((val)=>{
-                                                     return(<>
-                                                         <input
-                                                         type="radio"
-                                                         value={val.requestMeasureValueId}
-                                                         name={record.requestMeasureId.toString()}
-                                                         //checked={val.isSelected}
-                                                         onChange={onChangeValue}
-                                                     /> {isLanguageArabic?val.nameAr:val.nameEn}</>)
+        {loading &&<LoadingBox/>}
+        {
 
-                                                 })}
-                                             </td>
-                                         </tr>
-                                         </tbody>
-                                     </table>
+            sectionData.map((row, index) => {
+                const requestMeasureModel: RequestMeasureModel[] = _.chain(data).filter(p => p.inspectionSectionId === row.inspectionSectionId).value() as RequestMeasureModel[];
+                return requestMeasureModel.map((record, recordIndex) => {
+                    return (<>
+                            <div className="panel panel-default">
+                                <div
+                                    className="panel-heading">{isLanguageArabic ? record.sectionNameAr : record.sectionNameEn}</div>
+                                <div className="panel-body">
+                                    <table>
+                                        <thead>
+                                        <td>Mandatory</td>
+                                        <td>Measure</td>
+                                        <td>Value</td>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>    {record.isMandatory ? <div>*</div> : <div></div>}</td>
+                                            <td> {isLanguageArabic ? record.nameAr : record.nameEn}</td>
+                                            <td>
+                                                {record.measureTypeId == 1 &&
+                                                <MeasureRadioButtonListTemplate
+                                                    requestMeasureId={record.requestMeasureId}
+                                                    isLanguageArabic={isLanguageArabic}
+                                                    values={record.measureValues}
+                                                    onStatusChange={handleRadioButtonChangeValue}
+                                                />}
+                                            </td>
+                                            <td>
+                                                {<MeasureCommentTextBoxTemplate
+                                                    requestMeasureId={record.requestMeasureId}
+                                                    value={record.comment}
+                                                    onTextChange={handleTextBoxChangeValue}
+                                                />}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
 
-
-                                     {/*{record.measureTypeId==1?<>radio-button</>:<></>}*/}
-                                     {/*{record.measureTypeId==2?<>checkbox-button</>:<></>}*/}
-                                     {/*{record.measureTypeId==3?<>droplist-button</>:<></>}*/}
-                                     {/*{record.measureTypeId==4?<>text-button</>:<></>}*/}
-
-                                 </div>
-                             </div>
-
-                         </>
-
-                         )
-                 })
-             })
-         }
+                                </div>
+                            </div>
+                        </>
+                    )
+                })
+            })
+        }
+        <table>
+        <tbody>
+        <tr>
+            <td>
+                <button onClick={handleSaveButton}  className="primary block" name="button 1">{t("Measure.SaveButton.Text")}</button>
+            </td>
+        </tr>
+        </tbody>
+        </table>
     </>)
 }

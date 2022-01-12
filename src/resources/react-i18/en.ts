@@ -75,4 +75,6 @@ export const TRANSLATIONS_EN= {
   "Routes.Common.Products": "Common-Products-en",
   "Routes.Private": "Private-en",
   "Routes.Public": "Public-en",
+  "Measure.Comment":"Comment(En)",
+  "Measure.SaveButton.Text":"Save(En)"
 }

@@ -74,4 +74,6 @@
    "Routes.Common.Products": "Common-Products-ar",
    "Routes.Private": "Private-ar",
    "Routes.Public": "Public-ar",
+   "Measure.Comment":"Comment(Ar)",
+   "Measure.SaveButton.Text":"Save(Ar)"
 };
