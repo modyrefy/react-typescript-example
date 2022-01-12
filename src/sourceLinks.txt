@@ -6,6 +6,13 @@ https://www.google.com/search?q=Share+LocalStorage%2FSessionStorage+between+diff
 
 documents uploader
 https://stackblitz.com/edit/react-bvfjbb-5p7rnw-xfi1ag?file=app%2Fmain.jsx
+https://codesandbox.io/s/f3kpb?file=/src/Uploader.js
+https://www.bezkoder.com/react-dropzone-multiple-files-upload/
+https://www.bezkoder.com/react-file-upload-spring-boot/
+https://www.telerik.com/kendo-react-ui/my-license/
+https://www.telerik.com/kendo-react-ui/components/upload/custom-rendering/
+https://www.telerik.com/kendo-react-ui/components/upload/modes/
+
 
 
 https://dev.to/iamandrewluca/private-route-in-react-router-v6-lg5

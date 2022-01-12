@@ -1,19 +1,20 @@
 import {FC, useEffect, useRef, useState} from "react";
-import { Upload } from '@progress/kendo-react-upload';
+import {Upload} from '@progress/kendo-react-upload';
 import {UploadOnStatusChangeEvent} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadOnStatusChangeEvent";
 import {UploadFileInfo} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadFileInfo";
-import {alertTitleClasses} from "@mui/material";
-import {LocalStorageGet} from "../../utility/localStorage/localStorageHelper";
-import {CookieGet, CookieSet} from "../../utility/cookie/cookieHelper";
+
+
 const fileStatuses = ['UploadFailed', 'Initial', 'Selected', 'Uploading', 'Uploaded', 'RemoveFailed', 'Removing'];
-export interface FileUploader{
-    DocumentServiceId:number,
-    UploadFileInfo:UploadFileInfo
+
+export interface FileUploader {
+    DocumentServiceId: number,
+    UploadFileInfo: UploadFileInfo
 
 }
+
 //https://stackblitz.com/edit/react-bvfjbb?file=app/main.jsx
 //documentServiceId:number
-export const DocumentUploader:FC<{}>=()=>{
+export const FileUploader: FC<{}> = () => {
     const [files, setFiles] = useState<UploadFileInfo[]>([]);
     const [events, setEvents] = useState<string[]>([]);
     const [filePreviews, setFilePreviews] = useState({});
@@ -22,14 +23,15 @@ export const DocumentUploader:FC<{}>=()=>{
     const progressRef = useRef({});
 
     //# region events
-    const onAdd = (event:UploadOnStatusChangeEvent) => {
+    const onAdd = (event: UploadOnStatusChangeEvent) => {
         console.log("onadd");
         setFiles(event.newState);
         setEvents([...events, `File selected: ${event.affectedFiles[0].name}`]);
         setAffectedFiles(event.affectedFiles);
     };
-    const onRemove = (event:any) => {
-        let newFilePreviews = { ...filePreviews
+    const onRemove = (event: any) => {
+        let newFilePreviews = {
+            ...filePreviews
         };
         // @ts-ignore
         event.affectedFiles.forEach(file => {
@@ -41,22 +43,21 @@ export const DocumentUploader:FC<{}>=()=>{
         setEvents([...events, `File removed: ${event.affectedFiles[0].name}`]);
         setFilePreviews(newFilePreviews);
     };
-    const onProgress = (event:any) => {
+    const onProgress = (event: any) => {
         console.log("onProgress");
         setFiles(event.newState);
         // @ts-ignore
         setEvents([...events, `On Progress: ${event.affectedFiles[0].progress} %`]);
     };
-    const onStatusChange = (event:UploadOnStatusChangeEvent) => {
+    const onStatusChange = (event: UploadOnStatusChangeEvent) => {
         const file = event.affectedFiles[0];
-        console.log('onStatusChange' +file.status);
+        console.log('onStatusChange' + file.status);
         setFiles(event.newState);
         setEvents([...events, `File '${file.name}' status changed to: ${fileStatuses[file.status]}`]);
     };
     //# endregion
-    const onSave=(files: UploadFileInfo[],options: any, onProgress: any)=>
-    {
-        const file=files[0];
+    const onSave = (files: UploadFileInfo[], options: any, onProgress: any) => {
+        const file = files[0];
         console.log("on-save");
         const uid = files[0].uid;
         // Simulate save request
@@ -64,7 +65,7 @@ export const DocumentUploader:FC<{}>=()=>{
 
             setTimeout(() => {
                 alert(uid);
-                resolve({ uid: uid });
+                resolve({uid: uid});
             }, 300);
             // // @ts-ignore
             // requestIntervalRef.current[uid] = setInterval(
@@ -90,14 +91,14 @@ export const DocumentUploader:FC<{}>=()=>{
 
         return saveRequestPromise;
     };
-    const onRemoveRequest = (files:UploadFileInfo[], options:any) => {
+    const onRemoveRequest = (files: UploadFileInfo[], options: any) => {
         const uid = files[0].uid;
         // Simulate remove request
         const removeRequestPromise = new Promise((resolve) => {
 
             setTimeout(() => {
                 alert(uid);
-                resolve({ uid: uid });
+                resolve({uid: uid});
             }, 300);
         });
 
@@ -109,7 +110,8 @@ export const DocumentUploader:FC<{}>=()=>{
             const reader = new FileReader();
 
             reader.onloadend = ev => {
-                setFilePreviews({ ...filePreviews,
+                setFilePreviews({
+                    ...filePreviews,
                     // @ts-ignore
                     [file.uid]: ev.target.result
                 });
@@ -130,19 +132,18 @@ export const DocumentUploader:FC<{}>=()=>{
                 batch={false}
                 multiple={true}
                 files={files}
-                 onAdd={onAdd}
-                 onRemove={onRemove}
-                 onProgress={onProgress}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                onProgress={onProgress}
                 onStatusChange={onStatusChange}
                 withCredentials={false}
                 //saveUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/save'}
                 // @ts-ignore
-                 saveUrl={onSave}
+                saveUrl={onSave}
                 //removeUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/remove'}
                 // @ts-ignore
-                 removeUrl={onRemoveRequest}
+                removeUrl={onRemoveRequest}
             />
-
             <div className={'example-config'} style={{
                 marginTop: 20
             }}>
@@ -150,12 +151,12 @@ export const DocumentUploader:FC<{}>=()=>{
                     {events.map((event, index) => <li key={index}>{event}</li>)}
                 </ul>
             </div>
-            {files.length && <div >
+            {files.length && <div>
                 <h3>files </h3>
                 {
                     files.map((file, index) => <li key={index}>{file.name}-- {file.status}</li>)
-                  }
-            </div> }
+                }
+            </div>}
 
             {/*{files.length ? <div className={'img-preview example-config'}>*/}
             {/*    <h3>Preview selected images</h3>*/}

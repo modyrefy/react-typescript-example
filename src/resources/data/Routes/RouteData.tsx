@@ -7,7 +7,7 @@ import {HomeComponent} from "../../../component/Home/HomeComponent";
 import Signup from "../../../component/authentication/signup.component";
 import ProductList from "../../../component/product/productList.component";
 import {PrivateRoute} from "../../../component/routes/authenticatedRoute";
-import {DocumentUploader} from "../../../component/FileUploader/DocumentUploader";
+import {FileUploader} from "../../../component/FileUploader/FileUploader";
 import {MeasureValueComponent} from "../../../component/measureSample/MeasureValueSample";
 
 
@@ -41,7 +41,7 @@ export const RouteItems: IRouteBase[] =[
         isAuthenticationRequired: true,
         content: (<MasterLayout>
             <HomeComponent/>
-         <DocumentUploader/>
+         <FileUploader/>
         </MasterLayout>)
     },
     {

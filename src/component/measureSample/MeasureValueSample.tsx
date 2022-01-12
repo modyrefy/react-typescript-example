@@ -5,6 +5,7 @@ import {MeasureRadioButtonListTemplate} from "./MeasureRadioButtonListTemplate";
 import {MeasureCommentTextBoxTemplate} from "./MeasureCommentTextBoxTemplate";
 import {LoadingBox} from "../box/loadingBox";
 import {useTranslation} from "react-i18next";
+import {FileUploader} from "../FileUploader/FileUploader";
 export interface MeasureValueModel {
     requestMeasureValueId: number;
     nameAr: string;
@@ -243,55 +244,54 @@ export const MeasureValueComponent:FC<{}>=()=> {
     }, []);
     const isLanguageArabic: boolean = isArabicCurrentLanguage();
     const {t} = useTranslation();
-    const getRecord=(requestMeasureData: RequestMeasureModel[] ,id:number):RequestMeasureModel|null=> {
+    const getRecord = (requestMeasureData: RequestMeasureModel[], id: number): RequestMeasureModel | null => {
         const record: RequestMeasureModel = _.find(requestMeasureData, (obj) => {
             return obj.requestMeasureId === id
         }) as RequestMeasureModel;
         return record
     }
-    const updateRecords=(requestMeasureData: RequestMeasureModel[] ,record: RequestMeasureModel ): RequestMeasureModel[]=>{
+    const updateRecords = (requestMeasureData: RequestMeasureModel[], record: RequestMeasureModel): RequestMeasureModel[] => {
         _.remove(requestMeasureData, (obj) => {
             return obj.requestMeasureId === record.requestMeasureId
         });
         _.chain(requestMeasureData).push(record);
-        return  requestMeasureData;
+        return requestMeasureData;
     }
     //#region events
-    const sleep = (milliseconds:number) => {
+    const sleep = (milliseconds: number) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
     const handleTextBoxChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.name + ' --- ' + event.target.value);
         const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
-        const record=getRecord(requestMeasureData,Number( event.target.name))
+        const record = getRecord(requestMeasureData, Number(event.target.name))
         if (record != null) {
-            record.comment=event.target.value;
-            setData(updateRecords(requestMeasureData,record));
+            record.comment = event.target.value;
+            setData(updateRecords(requestMeasureData, record));
         }
     }
     const handleRadioButtonChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
         console.log(event.target.name + ' --- ' + event.target.value);
         const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
-        const record=getRecord(requestMeasureData,Number( event.target.name))
+        const record = getRecord(requestMeasureData, Number(event.target.name))
         if (record != null) {
             record.measureValues.forEach(r => r.isSelected = r.requestMeasureValueId === Number(event.target.value) ? true : false);
-            setData(updateRecords(requestMeasureData,record));
+            setData(updateRecords(requestMeasureData, record));
         }
     }
-    const handleSaveButton=async (event: any)=>{
+    const handleSaveButton = async (event: any) => {
         setLoading(true);
         event.preventDefault();
         await sleep(1000) //wait 1 seconds
         const requestMeasureData: RequestMeasureModel[] = {...data} as RequestMeasureModel[]
-        console.log('button '+  JSON.stringify(requestMeasureData));
+        console.log('button ' + JSON.stringify(requestMeasureData));
         setLoading(false);
     }
     //#endregion
     return (<>
         <p>Measure -Values -Lodash Component</p>
-        {loading &&<LoadingBox/>}
+        {loading && <LoadingBox/>}
         {
-
             sectionData.map((row, index) => {
                 const requestMeasureModel: RequestMeasureModel[] = _.chain(data).filter(p => p.inspectionSectionId === row.inspectionSectionId).value() as RequestMeasureModel[];
                 return requestMeasureModel.map((record, recordIndex) => {
@@ -338,13 +338,23 @@ export const MeasureValueComponent:FC<{}>=()=> {
             })
         }
         <table>
-        <tbody>
-        <tr>
-            <td>
-                <button onClick={handleSaveButton}  className="primary block" name="button 1">{t("Measure.SaveButton.Text")}</button>
-            </td>
-        </tr>
-        </tbody>
+            <tbody>
+            <tr>
+                <td>
+                    <button onClick={handleSaveButton} className="primary block"
+                            name="saveButton">{t("Measure.SaveButton.Text")}</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <FileUploader/>
+                </td>
+            </tr>
+            </tbody>
         </table>
     </>)
 }
