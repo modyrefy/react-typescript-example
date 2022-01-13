@@ -341,6 +341,21 @@ export const MeasureValueComponent:FC<{}>=()=> {
             <tbody>
             <tr>
                 <td>
+                    <p>Comments</p>
+                    <ul>
+                        <li>handle request comment</li>
+                        <li>create full request in state & map measure value to it</li>
+                        <li>uploader control</li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <tbody>
+            <tr>
+                <td>
                     <button onClick={handleSaveButton} className="primary block"
                             name="saveButton">{t("Measure.SaveButton.Text")}</button>
                 </td>

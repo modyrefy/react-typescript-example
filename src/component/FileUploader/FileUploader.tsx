@@ -1,16 +1,17 @@
 import {FC, useEffect, useRef, useState} from "react";
-import {Upload} from '@progress/kendo-react-upload';
+import {Upload ,UploadListItemProps} from '@progress/kendo-react-upload';
 import {UploadOnStatusChangeEvent} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadOnStatusChangeEvent";
 import {UploadFileInfo} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadFileInfo";
+import {Link} from "react-router-dom";
 
 
 const fileStatuses = ['UploadFailed', 'Initial', 'Selected', 'Uploading', 'Uploaded', 'RemoveFailed', 'Removing'];
 
-export interface FileUploader {
-    DocumentServiceId: number,
-    UploadFileInfo: UploadFileInfo
-
-}
+// export interface FileUploader {
+//     DocumentServiceId: number,
+//     UploadFileInfo: UploadFileInfo
+//
+// }
 
 //https://stackblitz.com/edit/react-bvfjbb?file=app/main.jsx
 //documentServiceId:number
@@ -125,6 +126,27 @@ export const FileUploader: FC<{}> = () => {
     }, [affectedFiles, filePreviews]);
     // @ts-ignore
 
+
+    const CustomListItemUI = (props: UploadListItemProps) => {
+        return (
+            <>
+                {
+                    props.files.map(doc =>
+                    {
+                        return(
+                            <>
+                                <Link to={doc.name} target="_blank" download><li key={doc.name}>{doc.name}</li></Link>
+                                <button >X</button>
+                            </>
+                        )
+
+                    })
+                }
+            </>);
+    };
+    const CustomListItemUINullable = (props: UploadListItemProps) => {
+        return (<>fileName</>)
+    };
     return (<>
         <div>
             {/*<input name="files" id="files" type="file" multiple={true} />*/}
@@ -137,6 +159,8 @@ export const FileUploader: FC<{}> = () => {
                 onProgress={onProgress}
                 onStatusChange={onStatusChange}
                 withCredentials={false}
+                listItemUI={CustomListItemUI}
+                 //listItemUI={CustomListItemUI}
                 //saveUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/save'}
                 // @ts-ignore
                 saveUrl={onSave}
@@ -144,19 +168,31 @@ export const FileUploader: FC<{}> = () => {
                 // @ts-ignore
                 removeUrl={onRemoveRequest}
             />
-            <div className={'example-config'} style={{
-                marginTop: 20
-            }}>
-                <ul className={'event-log'}>
-                    {events.map((event, index) => <li key={index}>{event}</li>)}
-                </ul>
-            </div>
-            {files.length && <div>
-                <h3>files </h3>
-                {
-                    files.map((file, index) => <li key={index}>{file.name}-- {file.status}</li>)
-                }
-            </div>}
+            {/*<div className={'example-config'} style={{*/}
+            {/*    marginTop: 20*/}
+            {/*}}>*/}
+            {/*    <ul className={'event-log'}>*/}
+            {/*        {events.map((event, index) => <li key={index}>{event}</li>)}*/}
+            {/*    </ul>*/}
+            {/*</div>*/}
+
+            {/*{files.length && <div>*/}
+            {/*    /!*<h3>files </h3>*!/*/}
+            {/*    {*/}
+            {/*        files.map((file, index) => {*/}
+            {/*                return (*/}
+            {/*                    <>*/}
+            {/*                        <Link to={file.name} target="_blank" download>*/}
+            {/*                            <li key={index}>{file.name}</li>*/}
+            {/*                        </Link>*/}
+            {/*                        <button>X</button>*/}
+            {/*                    </>*/}
+            {/*                )*/}
+
+            {/*            }*/}
+            {/*        )*/}
+            {/*    }*/}
+            {/*</div>}*/}
 
             {/*{files.length ? <div className={'img-preview example-config'}>*/}
             {/*    <h3>Preview selected images</h3>*/}
@@ -169,4 +205,4 @@ export const FileUploader: FC<{}> = () => {
             {/*</div> : undefined}*/}
         </div>
     </>)
-}
+};
