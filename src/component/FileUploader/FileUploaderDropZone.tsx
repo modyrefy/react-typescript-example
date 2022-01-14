@@ -49,7 +49,7 @@ const Layout = ({input, previews, submitButton, dropzoneProps, files, extra: {ma
         <div>
             {previews}
             <div {...dropzoneProps}>{files.length < maxFiles && input}</div>
-            {/*{files.length > 0 && submitButton}*/}
+            {files.length > 0 && submitButton}
         </div>
     )
 }
@@ -121,13 +121,14 @@ export const FileUploaderDropZone: FC<{}> = () => {
         console.log(files.map(f => f.meta))
     }
 
+
     return (
         <>
             {loading && <LoadingBox/>}
             <Dropzone
                 getUploadParams={getUploadParams}
                 onChangeStatus={handleChangeStatus}
-                multiple={false}
+                //multiple={false}
                 //onDrop ={handleDrop}
                 onSubmit={handleSubmit}
                 //inputContent='upload or drop files'
@@ -137,6 +138,7 @@ export const FileUploaderDropZone: FC<{}> = () => {
                 disabled={files => files.some(f => ['preparing', 'getting_upload_params', 'uploading'].includes(f.meta.status))}
                 LayoutComponent={Layout}
                 PreviewComponent={Preview}
+
                 styles={{
                     dropzoneReject: {borderColor: 'red', backgroundColor: '#DAA'},
                     inputLabel: (files, extra) => (extra.reject ? {color: 'red'} : {}),
