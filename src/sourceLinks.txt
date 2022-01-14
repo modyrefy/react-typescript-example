@@ -5,6 +5,12 @@ https://www.google.com/search?q=Share+LocalStorage%2FSessionStorage+between+diff
 
 
 documents uploader
+react-dropzone-uploader
+https://stackblitz.com/edit/react-dropzone-uploader-customized?file=Uploader.js
+https://github.com/fortana-co/react-dropzone-uploader/blob/master/examples/src/index.tsx
+https://react-dropzone-uploader.js.org/docs/typescript
+
+
 https://stackblitz.com/edit/react-bvfjbb-5p7rnw-xfi1ag?file=app%2Fmain.jsx
 https://codesandbox.io/s/f3kpb?file=/src/Uploader.js
 https://www.bezkoder.com/react-dropzone-multiple-files-upload/

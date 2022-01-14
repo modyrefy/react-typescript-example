@@ -25,19 +25,20 @@ export interface DocumentDetailModel {
 }
 
 export interface DocumentModelCompact {
-    documentId: number | null;
+    documentId?: number | null;
     documentTypeServiceId: number;
-    documentTypeNameAr: string;
-    documentTypeNameEn: string;
-    isRequired: boolean;
-    maxFileSize: number;
-    maxFileSizeFormatted: number;
-    maxFileInputCount: number;
-    allowedFileExtensions: string;
-    allowedMimeTypes: string;
+    documentTypeNameAr?: string|null;
+    documentTypeNameEn?: string|null;
+    isRequired?: boolean;
+    maxFileSize?: number;
+    maxFileSizeFormatted?: number;
+    maxFileInputCount?: number;
+    allowedFileExtensions?: string;
+    allowedMimeTypes?: string;
     requestMeasureId: number | null;
     documentName: string | null;
     documentPath: string | null;
     documentUrl: string | null;
+    documentSize:number|null;
     status: DocumentStatusEnum | null;
 }

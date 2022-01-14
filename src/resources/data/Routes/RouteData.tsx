@@ -12,6 +12,7 @@ import {MeasureValueComponent} from "../../../component/measureSample/MeasureVal
 import {FileUploaderDropZone} from "../../../component/FileUploader/FileUploaderDropZone";
 
 
+
 // Lazy load component
 
 export const RouteItems: IRouteBase[] =[
@@ -43,8 +44,8 @@ export const RouteItems: IRouteBase[] =[
         isAuthenticationRequired: true,
         content: (<MasterLayout>
             <HomeComponent/>
-         <FileUploader/>
-
+         {/*<FileUploader/>*/}
+            <FileUploaderDropZone/>
         </MasterLayout>)
     },
     {

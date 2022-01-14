@@ -3,6 +3,10 @@ import {Upload ,UploadListItemProps} from '@progress/kendo-react-upload';
 import {UploadOnStatusChangeEvent} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadOnStatusChangeEvent";
 import {UploadFileInfo} from "@progress/kendo-react-upload/dist/npm/interfaces/UploadFileInfo";
 import {Link} from "react-router-dom";
+import {DocumentModelCompact} from "../../models/interfaces/document/DocumentModel";
+import _ from "lodash";
+import {DocumentStatusEnum} from "../../models/enums/enum";
+import {RequestMeasureModel} from "../measureSample/MeasureValueSample";
 
 
 const fileStatuses = ['UploadFailed', 'Initial', 'Selected', 'Uploading', 'Uploaded', 'RemoveFailed', 'Removing'];
@@ -15,8 +19,11 @@ const fileStatuses = ['UploadFailed', 'Initial', 'Selected', 'Uploading', 'Uploa
 
 //https://stackblitz.com/edit/react-bvfjbb?file=app/main.jsx
 //documentServiceId:number
+
 export const FileUploader: FC<{}> = () => {
     const [files, setFiles] = useState<UploadFileInfo[]>([]);
+   //  const [documents,setDocuments]=useState<DocumentModelCompact[]>([]);
+    const documents = useRef<DocumentModelCompact[]>([]);
     const [events, setEvents] = useState<string[]>([]);
     const [filePreviews, setFilePreviews] = useState({});
     const [affectedFiles, setAffectedFiles] = useState<UploadFileInfo[]>([]);
@@ -26,9 +33,39 @@ export const FileUploader: FC<{}> = () => {
     //# region events
     const onAdd = (event: UploadOnStatusChangeEvent) => {
         console.log("onadd");
+        let documentList:DocumentModelCompact[]={...documents.current} as DocumentModelCompact[];
+       // console.log('before ' +JSON.stringify( documentList));
+        event.affectedFiles.map((row)=>{
+            const documentFile:DocumentModelCompact={
+                documentTypeServiceId: 11,
+                requestMeasureId: 12,
+                documentName: row.name,
+                documentPath: row.uid,
+                documentUrl: row.name,
+                documentSize:Number(row.size),
+                status: DocumentStatusEnum.Add,
+
+                documentId:null,
+                documentTypeNameAr:"",
+                documentTypeNameEn:"",
+                isRequired:true,
+                maxFileSize:1,
+                maxFileSizeFormatted:1,
+                maxFileInputCount:1,
+                allowedFileExtensions:"",
+                allowedMimeTypes:""
+            };
+           // console.log('file' + row.name)
+            //documentList.push(documentFile);
+            //_.chain(documentList).push(documentFile);
+            documents.current.push( documentFile) ;
+        });
+
+        //console.log('after ' +JSON.stringify( documents.current));
         setFiles(event.newState);
         setEvents([...events, `File selected: ${event.affectedFiles[0].name}`]);
         setAffectedFiles(event.affectedFiles);
+
     };
     const onRemove = (event: any) => {
         let newFilePreviews = {
@@ -63,7 +100,6 @@ export const FileUploader: FC<{}> = () => {
         const uid = files[0].uid;
         // Simulate save request
         const saveRequestPromise = new Promise((resolve, reject) => {
-
             setTimeout(() => {
                 alert(uid);
                 resolve({uid: uid});
@@ -128,20 +164,31 @@ export const FileUploader: FC<{}> = () => {
 
 
     const CustomListItemUI = (props: UploadListItemProps) => {
+       // console.log('documents' +JSON.stringify(documents.current))
         return (
             <>
-                {
-                    props.files.map(doc =>
-                    {
-                        return(
-                            <>
-                                <Link to={doc.name} target="_blank" download><li key={doc.name}>{doc.name}</li></Link>
-                                <button >X</button>
-                            </>
-                        )
+                {documents.current.map(doc=>{
+                    return(
+                        <>
+                            <Link to={String( doc.documentUrl)} target="_blank" download>
+                                <li key={doc.documentName}>{doc.documentName}-- {doc.documentPath}</li>
+                            </Link>
+                                            <button >(x)</button>
+                        </>
+                    );
+                })}
+                {/*{*/}
+                {/*    props.files.map(doc =>*/}
+                {/*    {*/}
+                {/*        return(*/}
+                {/*            <>*/}
+                {/*                <Link to={doc.name} target="_blank" download><li key={doc.name}>{doc.name}</li></Link>*/}
+                {/*                <button >Xxxxx</button>*/}
+                {/*            </>*/}
+                {/*        )*/}
 
-                    })
-                }
+                {/*    })*/}
+                {/*}*/}
             </>);
     };
     const CustomListItemUINullable = (props: UploadListItemProps) => {
