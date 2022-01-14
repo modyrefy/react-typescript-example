@@ -9,6 +9,7 @@ import ProductList from "../../../component/product/productList.component";
 import {PrivateRoute} from "../../../component/routes/authenticatedRoute";
 import {FileUploader} from "../../../component/FileUploader/FileUploader";
 import {MeasureValueComponent} from "../../../component/measureSample/MeasureValueSample";
+import {FileUploaderDropZone} from "../../../component/FileUploader/FileUploaderDropZone";
 
 
 // Lazy load component
@@ -32,6 +33,7 @@ export const RouteItems: IRouteBase[] =[
         isAuthenticationRequired: true,
         content: (<MasterLayout>
             <MeasureValueComponent/>
+
         </MasterLayout>)
     },
     {
@@ -42,6 +44,7 @@ export const RouteItems: IRouteBase[] =[
         content: (<MasterLayout>
             <HomeComponent/>
          <FileUploader/>
+
         </MasterLayout>)
     },
     {

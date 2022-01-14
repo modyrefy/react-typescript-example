@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, MouseEventHandler, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, MouseEventHandler, useEffect, useState} from "react";
 import _ from "lodash";
 import {isArabicCurrentLanguage} from "../../utility/localiztion/localization";
 import {MeasureRadioButtonListTemplate} from "./MeasureRadioButtonListTemplate";
@@ -6,6 +6,8 @@ import {MeasureCommentTextBoxTemplate} from "./MeasureCommentTextBoxTemplate";
 import {LoadingBox} from "../box/loadingBox";
 import {useTranslation} from "react-i18next";
 import {FileUploader} from "../FileUploader/FileUploader";
+import {FileUploaderDropZone} from "../FileUploader/FileUploaderDropZone";
+import {MasterLayout} from "../layout/layout/MasterLayout";
 export interface MeasureValueModel {
     requestMeasureValueId: number;
     nameAr: string;
@@ -29,6 +31,7 @@ export interface RequestMeasureModel {
     value: string| null;
     comment: string| null;
     measureValues: MeasureValueModel[];
+
 }
 export interface MeasureSectionModel{
     inspectionSectionId:number,
@@ -366,7 +369,8 @@ export const MeasureValueComponent:FC<{}>=()=> {
             <tbody>
             <tr>
                 <td>
-                    <FileUploader/>
+                    {/*<FileUploader/>*/}
+                    <FileUploaderDropZone/>
                 </td>
             </tr>
             </tbody>

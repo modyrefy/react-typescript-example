@@ -17,3 +17,10 @@ export  enum UserRoleEnum {
     SeniorAdmin=11
 
 }
+export enum DocumentStatusEnum
+{
+    Add=1,
+    Delete=2,
+    View=3
+
+}
