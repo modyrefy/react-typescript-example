@@ -83,6 +83,7 @@ export const FileUploaderDropZone: FC<{}> = () => {
 
     // specify upload params and url for your files
     const getUploadParams = ({meta}: IFileWithMeta) => {
+        alert('getUploadParams')
           return {url: 'https://httpbin.org/post'}
         // const url = 'https://httpbin.org/post'
         // return {url, meta: {fileUrl: `${url}/${encodeURIComponent(meta.name)}`}}
