@@ -10,6 +10,8 @@ import {PrivateRoute} from "../../../component/routes/authenticatedRoute";
 import {FileUploader} from "../../../component/FileUploader/FileUploader";
 import {MeasureValueComponent} from "../../../component/measureSample/MeasureValueSample";
 import {FileUploaderDropZone} from "../../../component/FileUploader/FileUploaderDropZone";
+import {MultipleFileUploadField} from "../../../component/FileUploader/customUploader/MultipleFileUploadField";
+import {FileDropzone} from "../../../component/FileUploader/FileDropzone";
 
 
 
@@ -45,7 +47,9 @@ export const RouteItems: IRouteBase[] =[
         content: (<MasterLayout>
             <HomeComponent/>
          {/*<FileUploader/>*/}
-            <FileUploaderDropZone/>
+         {/*   <FileUploaderDropZone/>*/}
+            {/*<MultipleFileUploadField name="files" />*/}
+            <FileDropzone/>
         </MasterLayout>)
     },
     {
